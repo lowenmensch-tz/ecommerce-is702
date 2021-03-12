@@ -146,7 +146,7 @@ Proyecto de Análisis y Diseño de Sistemas (IS-702) Sección 1801 Aplicación p
 - Local(id, direccion, telefono)
     - Proveedor(id, nombre_empresa, nombre_encargado)
     - Tienda(id)
-    - Remitente(id)
+    - Delivery(id)
 
 - Producto(id, fabricante, marca,  modelo, descripcion, precio_venta, año_fabricacion, foto)
     - Interfaz(id, tecnologia_panel, diagonal_pantalla, resolucion)
@@ -154,28 +154,33 @@ Proyecto de Análisis y Diseño de Sistemas (IS-702) Sección 1801 Aplicación p
         - Televisor(id, smart)
 
     - Computadora(id, procesador, ram, almacenamiento, tipo_almacenamiento)
-        - Consola(id, unidad_optica, gpu, accesorio_incluido, tipo_consola)
+        - Consola(id, serie, accesorio_incluido, tipo_consola{slim, portatil})
         - Escritorio(id, formato_case, color_case)
-        - Portatil(id, diagonal_pantalla, miliamperes_bateria, sistema_operativo)
-            - Laptop_tablet(id, tipo_dispositivo)
-            - Celular(id, color, tenología)
+        - Portatil(id, diagonal_pantalla, miliamperes_bateria, sistema_operativo{Android, Windows, Chrome OS, MacOS})
+            - Laptop_tablet(id, grafica, tipo{gamming, touch, ultrabook, chromebook})
+            - Celular(id, color, tenología_celular{5g, 4g}
 
-    - Impresora(id, tipo_impresora, tamaño_papel, conectividad, velocidad_impresión)
+    - Impresora(id, tipo_impresora{matricial, multifuncional, láser}, tamaño_papel, conectividad, velocidad_impresión)
 
     - Audio(id, potencia, conectividad)
         - Parlante_portatil(id, duracion, resistencia_agua)
         - Teatro_casa (id, puerto)
         - Equipo_sonido(id, formatos_reproducción )
 
-    - Accesorio(id, )
-        - Teclado(id, rgb, tipo)
-        - Auricular(id)
+    - Accesorio(id, tipo_accesorio{teclado, auricular, mouse})
 
 - Pedido(id, numero_orden, recibo_envio, fecha_envio)
 
 
 
 ## Referencia
+
+Elmasri, R., Díaz Martín, J. and Navathe, S., 2011. *Fundamentos de sistemas de bases de datos.*   
+5th ed. Madrid[etc.]: Pearson Educación, pp.55, 61, 71, 73.
+
+Silberschatz, A., Korth, H. F., & Sudarshan, S. (2005). *Diseño de bases de datos y elmodelo E-R. En *Database System Concepts*   
+(5.a ed., pp. 175-198). McGraw-Hill Education.
+
 
 <label><a href="https://www.jetstereo.com/audio">Jetstereo: Audio</label>  
 
@@ -202,9 +207,7 @@ Proyecto de Análisis y Diseño de Sistemas (IS-702) Sección 1801 Aplicación p
 <label><a href="https://www.jetstereo.com/consolas">Jetstereo: Consolas</label>  
 <label><a href="https://www.amazon.com/s?k=consola&i=videogames&rh=n%3A6427814011&page=2&language=es&__mk_es_US=%C3%85M%C3%85%C5%BD%C3%95%C3%91&qid=1615474504&ref=sr_pg_2">Amazon: Consolas</label>  
 <label><a href="https://www.diunsa.hn/consola-nintendo-switch-5-5---coral/p">Diunsa: Consolas</label>  
+<label><a href="https://www.walmart.com/browse/xbox-series/xbox-consoles/2636_9206773_4782003">Walmart: Xbox</label>  
+<label><a href="https://www.walmart.com/browse/playstation-5/all-playstation-consoles/2636_3475115_4589517">Walmart: PS</label>  
 <label><a href="https://www.xataka.com/videojuegos/ps5-tiene-precio-fecha-lanzamiento-oficiales-499-euros-399-euros-digital-edition-a-partir-12-noviembre">Xakata: PS5</label>  
 <label><a href="https://www.vidaextra.com/xbox-one/xbox-scorpio-vs-ps4-vs-xbox-one-vs-ps4-comparativa-con-las-especificaciones-tecnicas-de-cada-una">Xakata: Xbox Scorpio</label>  
-
-
-
-
