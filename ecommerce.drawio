@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-03-20T15:54:58.165Z" agent="5.0 (X11)" etag="7WOhHxteCyLTkhiDhSiR" version="14.4.7" type="github" pages="5">
+<mxfile host="app.diagrams.net" modified="2021-03-20T22:09:39.878Z" agent="5.0 (X11)" etag="Fy76YFpv9Ou7r0F2UuH_" version="14.4.7" type="github" pages="5">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Producto">
     <mxGraphModel dx="6976" dy="3264" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -2294,7 +2294,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="jqx7pjSbWeC1MgSVxQTw" name="Ecommerce">
-    <mxGraphModel dx="4348" dy="939" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="5547" dy="1397" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="U4vj-A-cjhyk6FB9QbGr-0" />
         <mxCell id="U4vj-A-cjhyk6FB9QbGr-1" parent="U4vj-A-cjhyk6FB9QbGr-0" />
@@ -4093,11 +4093,9 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-429" y="617" as="sourcePoint" />
             <mxPoint x="-379" y="567" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="FvGijFWMdlm-2Alu3rHF-147" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FvGijFWMdlm-2Alu3rHF-146">
-          <mxGeometry x="0.4643" y="1" relative="1" as="geometry">
-            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="-1063" y="720" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="FvGijFWMdlm-2Alu3rHF-149" value="nombre" style="ellipse;whiteSpace=wrap;html=1;align=center;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1};treeFolding=1;treeMoving=1;" vertex="1" parent="U4vj-A-cjhyk6FB9QbGr-1">
@@ -4119,8 +4117,8 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="FvGijFWMdlm-2Alu3rHF-152" value="n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FvGijFWMdlm-2Alu3rHF-151">
-          <mxGeometry x="0.3271" relative="1" as="geometry">
+        <mxCell id="FvGijFWMdlm-2Alu3rHF-187" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="FvGijFWMdlm-2Alu3rHF-151">
+          <mxGeometry x="0.2635" y="-4" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
@@ -4239,6 +4237,11 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="-320" y="990" as="sourcePoint" />
             <mxPoint x="-270" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="FvGijFWMdlm-2Alu3rHF-188" value="n" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="U4vj-A-cjhyk6FB9QbGr-1">
+          <mxGeometry x="-947.7142857142858" y="767" as="geometry">
+            <mxPoint x="-111" y="-49" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
