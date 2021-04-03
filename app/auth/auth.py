@@ -10,10 +10,10 @@ def main():
 		user= User()
 		email = request.form['email']
 		password = request.form['password']
-		result = user.verify(email, password)
-		if result == True:
-			session['email'] = email
-			return redirect(url_for("general_bp.home"))
+		#result = user.verify(email, password) En esta línea se debe validar que el usuario exista utilizando el objeto de conexión 
+		#if result == True: En caso que el usuario exista se crea la Sesión y se pueden realizar las validaciones en cualquier lugar
+		session['email'] = email
+		return redirect(url_for("general_bp.home"))
 	return render_template("login.html", title="Login")
 
 @auth_bp.route("/register", methods=["GET","POST"])
