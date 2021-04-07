@@ -173,7 +173,7 @@ CREATE TABLE Product(
     tex_model TINYTEXT NOT NULL COMMENT "Modelo para el producto",
     tex_description TEXT DEFAULT '' COMMENT "Breve descripción del producto que incluya características", 
     tim_year_launch YEAR NOT NULL COMMENT "Fecha de fabricación o año de lanzamiento del producto", 
-    tex_link_photo JSON DEFAULT '{}' NOT NULL COMMENT "Enlace que redirige a un sitio o página que contiene la imagen del producto",
+    jso_link_photo JSON DEFAULT '{}' NOT NULL COMMENT "Enlace que redirige a un sitio o página que contiene la imagen del producto",
 
     FOREIGN KEY (id_manufacturer_fk) REFERENCES Manufacturer(id)
 ) COMMENT "Entidad que contiene los datos generales de cualquier producto";

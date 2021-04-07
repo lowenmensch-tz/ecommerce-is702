@@ -1867,7 +1867,7 @@ INSERT INTO  Manufacturer(tex_manufacturer, tex_brand, tex_website) VALUES
     ("Huawei", "Huawei", "https://consumer.huawei.com/latin/")
 ;
 
-INSERT INTO Product(id_manufacturer_fk, tex_model, tim_year_launch, tex_description, tex_link_photo) VALUES 
+INSERT INTO Product(id_manufacturer_fk, tex_model, tim_year_launch, tex_description, jso_link_photo) VALUES 
 
     (6, "INSPIRON15-3505(R5)", 2020, "Rendimiento capaz de responder en un diseño elegante con bordes angostos de dos lados, SSD PCIe opcionales, ExpressCharge y un procesador móvil AMD Ryzen™ 7 3700U", '{"photo1": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/adf04439d82d90994491476ad6976ade-500x500.jpg", "photo2": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/50e2c7493bd701a9c12ab9acf85f0308-500x500.jpg", "photo3": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/111eba6f030f4e51b9696acd88863caf-500x500.jpg", "photo4": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/173b0af594ed6677d58b16088e303ae3-500x500.jpg"}'),
     (10, "15-DY1022LA", 2020, "Diseñada para tu productividad y entretenimiento desde cualquier lugar, la nueva HP Laptop 15 combina el poder de Intel y batería de larga duración en un diseño delgado y portable con pantalla de micro borde", '{"photo1": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/6e7e62e61d33923c04e8b94a11f27d32-500x500.jpg", "photo2": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/5867faf05499a139e59ce553c84bff8b-500x500.jpg", "photo3": "https://jet-web.s3.us-west-1.amazonaws.com/images/cache/catalog/public/2d21f77517e31cda670f7743d704b275-500x500.jpg"}'), 
