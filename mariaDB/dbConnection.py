@@ -11,7 +11,7 @@ class dbConnectionService:
 
     def __init__(self):
         config = configparser.ConfigParser()
-        config.read('MariaDB/dbServerConfig.ini')
+        config.read('mariaDB/dbServerConfig.ini')
 
         self.host = config['mariadb']['host']
         self.port = int(config['mariadb']['port'])
