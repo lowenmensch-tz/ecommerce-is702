@@ -13,8 +13,18 @@ def home():
     con = dbConnectionService() # Objeto de conexión hacia la base de datos
     con.connect()
 
-    res = con.query("SELECT Product.tex_model AS 'Modelo', JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS 'Foto', CONCAT('L. ', Inventory.dec_purchase_price, '.00')  AS 'Precio' FROM Product INNER JOIN Inventory ON Product.id = Inventory.id_product_fk LIMIT 12;") #Consulta para obtener los productos a mostrar
-    print(len(res))
+    res = con.query("""
+            SELECT 
+                Product.tex_model AS 'Modelo',
+                JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS 'Foto', 
+                CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS 'Precio'
+            FROM 
+                Product 
+            INNER JOIN Inventory
+            ON Product.id = Inventory.id_product_fk
+            LIMIT 12;
+        """) #Consulta para obtener los productos a mostrar
+
     return render_template("index.html", title="Home",products=res)
 
 @general_bp.route("/search")

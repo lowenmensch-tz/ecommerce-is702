@@ -6,7 +6,7 @@
 <meta http-equiv="cache-control" content="max-age=604800" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>{{title.capitalize()}} | NepBazar- Ecommerce Site</title>
+<title>{{title.capitalize()}} | Genshin Tech Store</title>
 
 <link href="/static/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 <script src="https://kit.fontawesome.com/c96d3752b6.js" crossorigin="anonymous"></script>
@@ -86,11 +86,11 @@ $(document).ready(function() {
       <div class="widget-header icontext">
         <a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
         <div class="text">
-          <span class="text-muted">Welcome!</span>
+          <span class="text-muted">Bienvenido!</span>
           {% if not 'email' in session: %}
           <div> 
-            <a href="/auth/login">Sign in</a> |  
-            <a href="/auth/register"> Register</a>
+            <a href="/auth/login">Iniciar Sesión</a> |  
+            <a href="/auth/register"> Registrarse</a>
           </div>
           {%else%}
           <div>
@@ -118,20 +118,37 @@ $(document).ready(function() {
       <ul class="navbar-nav">
        
         <li class="nav-item">
-          <a class="nav-link" href="/products/fashion">Fashion</a>
+          <a class="nav-link" href="/products/Audio">Audio</a>
         </li>
       
         <li class="nav-item">
-          <a class="nav-link" href="/products/apparels">Apparels</a>
+          <a class="nav-link" href="/products/apparels">Televisores</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link" href="/products/bicycles">Bicycles</a>
+          <a class="nav-link" href="/products/bicycles">Computadoras</a>
         </li>
        
         <li class="nav-item">
-          <a class="nav-link" href="/products/jewelry">Jewelry</a>
+          <a class="nav-link" href="/products/jewelry">Monitores</a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/products/fashion">Celulares</a>
+        </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" href="/products/apparels">Consolas</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="/products/bicycles">Impresoras</a>
+        </li>
+       
+        <li class="nav-item">
+          <a class="nav-link" href="/products/jewelry">Accesorios</a>
+        </li>
+
       </ul>
     </div> <!-- collapse .// -->
   </div> <!-- container .// -->
