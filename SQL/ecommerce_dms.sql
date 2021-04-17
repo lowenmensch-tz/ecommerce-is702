@@ -62,6 +62,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO Person(tex_dni, tex_first_name, tex_last_name, bit_gender, tim_birthday, tex_email) VALUES 
  -- Empleados
+ ('000-00-0000', 'Genesis','Eula',1,'2021/04/10', 'admin@admin.com'),
  ('657-94-9269', 'Lance', 'Roxbrough', 0, '1989/02/11', 'mocurrine0@blogs.com'),
  ('608-72-2038', 'Bryant', 'Cromleholme', 1, '1994/10/27', 'tdaouze1@noaa.gov'),
  ('129-66-8969', 'Herby', 'Playhill', 1, '1980/02/09', 'osimmens2@oracle.com'),
@@ -422,7 +423,7 @@ INSERT INTO Person(tex_dni, tex_first_name, tex_last_name, bit_gender, tim_birth
 --
 
 INSERT INTO User(id_person_fk, tex_password, cod_rol) VALUES
-    (1, 'wt6m4N4FW' ,1),
+    (1, 'admin' ,1),
     (2, 'I65nmezG' ,1),
     (3, '46RGGxm5P9' ,1),
     (4, '4T643gn7B05' ,1),
