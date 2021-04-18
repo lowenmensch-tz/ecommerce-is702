@@ -11,8 +11,8 @@ USE Ecommerce;
 -- Laptop
 --
 
-DROP VIEW IF EXISTS vw_laptop;
-CREATE VIEW vw_laptop AS
+DROP VIEW IF EXISTS vw_laptops;
+CREATE VIEW vw_laptops AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB, ", Portable.dec_diagonal, "\ ", OperativeSystem.tex_name, " ", VersionOS.tex_name) AS Titulo,
         Manufacturer.tex_brand AS Marca,
