@@ -1,6 +1,6 @@
 /*
     @author kenneth.cruz@unah.hn
-    @version 0.1.0
+    @version 0.1.2
     @date 17/04/2021
 */
 
@@ -21,7 +21,8 @@ CREATE VIEW vw_laptop AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -45,6 +46,8 @@ CREATE VIEW vw_laptop AS
         OperativeSystem ON VersionOS.id_operative_system_fk = OperativeSystem.id
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 --
@@ -61,7 +64,8 @@ CREATE VIEW vw_celulares AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -87,6 +91,8 @@ CREATE VIEW vw_celulares AS
         OperativeSystem ON VersionOS.id_operative_system_fk = OperativeSystem.id
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 
@@ -104,7 +110,8 @@ CREATE VIEW vw_escritorio AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -121,6 +128,8 @@ CREATE VIEW vw_escritorio AS
         Desktop ON Computer.id = Desktop.id_computer_fk
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 --
@@ -137,7 +146,8 @@ CREATE VIEW vw_consolas AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -154,6 +164,8 @@ CREATE VIEW vw_consolas AS
         Console ON Computer.id = Console.id_computer_fk
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 
@@ -171,7 +183,8 @@ CREATE VIEW vw_televisores AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Interface.cod_panel_technology AS Panel,
         Interface.dec_diagonal AS Diagonal,
@@ -190,6 +203,8 @@ CREATE VIEW vw_televisores AS
         OperativeSystem ON VersionOS.id_operative_system_fk = OperativeSystem.id
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 --
@@ -206,7 +221,8 @@ CREATE VIEW vw_monitores AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Interface.cod_panel_technology AS Panel,
         Interface.dec_diagonal AS Diagonal,
@@ -223,6 +239,8 @@ CREATE VIEW vw_monitores AS
         Monitor ON Interface.id = Monitor.id_interface_fk
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 
@@ -240,7 +258,8 @@ CREATE VIEW vw_impresoras AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Printer.cod_type AS Tipo,
         Printer.tex_print_size AS 'Dimensiones impresión',
@@ -253,6 +272,8 @@ CREATE VIEW vw_impresoras AS
         Printer ON Product.id = Printer.id_product_fk 
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 
@@ -270,7 +291,8 @@ CREATE VIEW vw_graficas AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         GraphicCard.sma_cores AS Cores,
         GraphicCard.sma_memory AS VRAM,
@@ -283,6 +305,8 @@ CREATE VIEW vw_graficas AS
         GraphicCard ON Product.id = GraphicCard.id_product_fk 
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 
@@ -301,7 +325,8 @@ CREATE VIEW vw_accesorios AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Accessory.tex_type AS Tipo
     FROM 
@@ -311,7 +336,9 @@ CREATE VIEW vw_accesorios AS
     INNER JOIN 
         Accessory ON Product.id = Accessory.id_product_fk 
     INNER JOIN 
-        Inventory ON Product.id = Inventory.id_product_fk 
+        Inventory ON Product.id = Inventory.id_product_fk
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id 
 ;
 
 
@@ -329,7 +356,8 @@ CREATE VIEW vw_teatro AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Audio.sma_power AS Watts,
         HomeTheater.tex_port AS Puerto
@@ -342,7 +370,9 @@ CREATE VIEW vw_teatro AS
     INNER JOIN 
         HomeTheater ON Audio.id = HomeTheater.id_audio_fk 
     INNER JOIN 
-        Inventory ON Product.id = Inventory.id_product_fk 
+        Inventory ON Product.id = Inventory.id_product_fk
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id 
 ;
 
 --
@@ -359,7 +389,8 @@ CREATE VIEW vw_audiosistema AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Audio.sma_power AS Watts,
         AudioSystem.tex_format_reproduction AS 'Formato reproducción'
@@ -373,6 +404,8 @@ CREATE VIEW vw_audiosistema AS
         AudioSystem ON Audio.id = AudioSystem.id_audio_fk 
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id
 ;
 
 
@@ -390,7 +423,8 @@ CREATE VIEW vw_inalambrico AS
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
         Inventory.med_quantity AS Cantidad, 
-        Product.id AS id,
+        Product.id AS id, 
+        Category.tex_category AS Categoria,
 
         Audio.sma_power AS Watts,
         PortableSpeaker.tim_battery AS Bateria
@@ -403,5 +437,7 @@ CREATE VIEW vw_inalambrico AS
     INNER JOIN 
         PortableSpeaker ON Audio.id = PortableSpeaker.id_audio_fk 
     INNER JOIN 
-        Inventory ON Product.id = Inventory.id_product_fk 
+        Inventory ON Product.id = Inventory.id_product_fk
+    INNER JOIN 
+        Category ON Product.id_category_fk = Category.id 
 ;
