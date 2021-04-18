@@ -75,7 +75,8 @@
 
     <div class="col-md-3">
       <div href="#" class="card card-product-grid">
-        <a href="#" class="img-wrap"> <img src= {{products[i][1]}} > </a>
+        <!-- Categoria/Nombre del producto -->
+        <a href="/products/{{products[i][3]}}/{{products[i][0]}}" class="img-wrap"> <img src= {{products[i][1]}} > </a>
         <figcaption class="info-wrap">
           <a href="#" class="title">{{products[i][0]}}</a>
           
@@ -118,7 +119,7 @@
   {% for i in range(4,8) %}
     <div class="col-md-3">
       <div href="#" class="card card-product-grid">
-        <a href="#" class="img-wrap"> <img src={{products[i][1]}}> </a>
+        <a href="/products/{{products[i][3]}}/{{products[i][0]}}" class="img-wrap"> <img src={{products[i][1]}}> </a>
         <figcaption class="info-wrap">
           <a href="#" class="title">{{products[i][0]}}</a>
           
@@ -162,7 +163,7 @@
   {% for i in range(8,12) %}
     <div class="col-md-3">
       <div href="#" class="card card-product-grid">
-        <a href="#" class="img-wrap"> <img src={{products[i][1]}}> </a>
+        <a href="/products/{{products[i][3]}}/{{products[i][0]}}" class="img-wrap"> <img src={{products[i][1]}}> </a>
         <figcaption class="info-wrap">
           <a href="#" class="title">{{products[i][0]}}</a>
           <div class="price mt-1">{{products[i][2]}}</div> <!-- price-wrap.// -->
