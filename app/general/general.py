@@ -20,7 +20,8 @@ def home():
                     Titulo, 
                     Foto, 
                     Precio, 
-                    Categoria
+                    Categoria, 
+                    id
                 FROM 
                     vw_celulares
                 LIMIT 4
@@ -31,7 +32,8 @@ def home():
                     Titulo, 
                     Foto, 
                     Precio, 
-                    Categoria
+                    Categoria, 
+                    id
                 FROM 
                     vw_laptop
                 LIMIT 4
@@ -42,7 +44,8 @@ def home():
                     Titulo, 
                     Foto, 
                     Precio, 
-                    Categoria
+                    Categoria,
+                    id
                 FROM 
                     vw_monitores
                 LIMIT 4
