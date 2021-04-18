@@ -13,7 +13,23 @@ def main(product):
 	con = dbConnectionService() # Objeto de conexión hacia la base de datos
 	con.connect() #Conexión hacia la base de datos
 
-	product_items = con.query("SELECT * FROM vw_%s" % product_name) #Consulta para obtener todos los productos en la categoría
+	
+	query =  """
+				SELECT 
+					tex_category
+				FROM 
+					Category
+				WHERE
+					SUBSTRING({}, 1, 6) RLIKE SUBSTRING({}, 1, 6)  AS Compare
+					;
+			""".format( product_name )
+	
+	category = con.query( query )
+
+	#Consulta para obtener todos los productos en la categoría
+	#product_items = con.query("SELECT * FROM vw_%s" % product_name) 
+	
+	product_items = con.query("SELECT * FROM vw_%s".format( product_name )) 
 
 	# Paginación
 	page = int(request.args.get("page") or 1)
@@ -36,10 +52,15 @@ def view_product(product, product_item):
 	con = dbConnectionService() # Objeto de conexión hacia la base de datos
 	con.connect() #Conexión hacia la base de datos
 
-	print( "SELECT * FROM vw_%s WHERE Titulo = %s"%( product.strip(), product_item.strip() ) )
+	print( con.query("SELECT * FROM Category WHERE SUBSTRING(tex_category, 1, 5) RLIKE SUBSTRING('%s', 1, 5);"%( product.strip())) )
 
 	product_items = con.query( "SELECT * FROM vw_%s WHERE Titulo = '%s';"%( product.strip(), product_item.strip() ) ) #Consulta para obtener todos los productos en la categoría
 
+	quantity = product_items[0][6]
+
+	# Se modifica la cantidad de stock en caso que sea demasiado grande
+	if product_items[0][6]  > 10:
+		quantity = 10
 
 	#product_items = product.return_items()
 	#product_items = [dict(p) for p in product.return_items()] 
@@ -51,7 +72,8 @@ def view_product(product, product_item):
 		return render_template(
 			"view.html", 
 			results= product_items,  #{"item":product_name, "keyword":product_item}, 
-			title=product_item
+			title=product_item, 
+			quantity=quantity
 			) 
 
 @products_bp.route("/view")
