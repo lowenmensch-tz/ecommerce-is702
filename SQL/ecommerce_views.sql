@@ -4,12 +4,17 @@
     @date 17/04/2021
 */
 
+
+USE Ecommerce;
+
 --
 -- Laptop
 --
+
+DROP VIEW IF EXISTS vw_laptop;
 CREATE VIEW vw_laptop AS
     SELECT 
-        CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB, ", Portable.dec_diagonal, "\ ", OperativeSystem.tex_name, " ", VersionOS.tex_name) AS Titulo,
+        CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB, ", Portable.dec_diagonal, "\" ", OperativeSystem.tex_name, " ", VersionOS.tex_name) AS Titulo,
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
@@ -43,6 +48,8 @@ CREATE VIEW vw_laptop AS
 --
 -- Celular
 --
+
+DROP VIEW IF EXISTS vw_celulares;
 CREATE VIEW vw_celulares AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB ", Smartphone.sma_front_camera, "MP") AS Titulo,
@@ -83,6 +90,7 @@ CREATE VIEW vw_celulares AS
 -- Escritorio
 --
 
+DROP VIEW IF EXISTS vw_escritorio;
 CREATE VIEW vw_escritorio AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB ", Desktop.cod_format) AS Titulo,
@@ -113,6 +121,7 @@ CREATE VIEW vw_escritorio AS
 -- Consola
 --
 
+DROP VIEW IF EXISTS vw_consolas;
 CREATE VIEW vw_consolas AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB ", Console.cod_type) AS Titulo,
@@ -144,6 +153,7 @@ CREATE VIEW vw_consolas AS
 -- Televisor
 --
 
+DROP VIEW IF EXISTS vw_televisores;
 CREATE VIEW vw_televisores AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Interface.cod_panel_technology, " ", Interface.cod_resolution) AS Titulo,
@@ -176,6 +186,7 @@ CREATE VIEW vw_televisores AS
 -- Monitores
 --
 
+DROP VIEW IF EXISTS vw_monitores;
 CREATE VIEW vw_monitores AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Interface.cod_panel_technology, " ", Interface.cod_resolution, " ", Monitor.sma_refresh_rate, " HZ") AS Titulo,
@@ -207,6 +218,7 @@ CREATE VIEW vw_monitores AS
 -- Impresoras
 --
 
+DROP VIEW IF EXISTS vw_impresoras;
 CREATE VIEW vw_impresoras AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Printer.cod_type) AS Titulo,
@@ -234,6 +246,7 @@ CREATE VIEW vw_impresoras AS
 -- Tarjetas gráficas
 --
 
+DROP VIEW IF EXISTS vw_graficas;
 CREATE VIEW vw_graficas AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", GraphicCard.sma_memory, " GB ", GraphicCard.cod_memory_type) AS Titulo,
@@ -262,13 +275,14 @@ CREATE VIEW vw_graficas AS
 -- Accesorios
 --
 
+DROP VIEW IF EXISTS vw_accesorios;
 CREATE VIEW vw_accesorios AS
     SELECT 
-        CONCAT(Manufacturer.tex_brand, " ", Accesory.tex_type) AS Titulo,
+        CONCAT(Manufacturer.tex_brand, " ", Accessory.tex_type) AS Titulo,
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
-        Accesory.tex_type AS Tipo,
+        Accessory.tex_type AS Tipo,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
         CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
     FROM 
@@ -276,7 +290,7 @@ CREATE VIEW vw_accesorios AS
     INNER JOIN 
         Product ON Manufacturer.id = Product.id_manufacturer_fk
     INNER JOIN 
-        Accesory ON Product.id = Accesory.id_product_fk 
+        Accessory ON Product.id = Accessory.id_product_fk 
     INNER JOIN 
         Inventory ON Product.id = Inventory.id_product_fk 
 ;
@@ -286,6 +300,7 @@ CREATE VIEW vw_accesorios AS
 -- Teatro en casa 
 --
 
+DROP VIEW IF EXISTS vw_teatroEnCasa;
 CREATE VIEW vw_teatroEnCasa AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Audio.sma_power, "Watts") AS Titulo,
@@ -312,6 +327,7 @@ CREATE VIEW vw_teatroEnCasa AS
 -- Audio
 --
 
+DROP VIEW IF EXISTS vw_audio;
 CREATE VIEW vw_audio AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Audio.sma_power, "Watts ", AudioSystem.tex_format_reproduction) AS Titulo,
@@ -339,6 +355,7 @@ CREATE VIEW vw_audio AS
 -- Parlante inalámbrico
 --
 
+DROP VIEW IF EXISTS vw_audio_inalambrico;
 CREATE VIEW vw_audio_inalambrico AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Audio.sma_power, "Watts ", IF(PortableSpeaker.bit_water_resistant=1, "Resistente al agua", "")  ) AS Titulo,
