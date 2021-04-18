@@ -14,19 +14,19 @@ USE Ecommerce;
 DROP VIEW IF EXISTS vw_laptop;
 CREATE VIEW vw_laptop AS
     SELECT 
-        CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB, ", Portable.dec_diagonal, "\" ", OperativeSystem.tex_name, " ", VersionOS.tex_name) AS Titulo,
+        CONCAT(Manufacturer.tex_brand, " ", Computer.sma_storage, "GB, ", Portable.dec_diagonal, "\ ", OperativeSystem.tex_name, " ", VersionOS.tex_name) AS Titulo,
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
         Computer.sma_storage AS Almacenamiento,
         Portable.dec_diagonal AS Diagonal,
         Laptop.tex_graphic AS Grafica,
-        OperativeSystem.tex_name AS OS,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        OperativeSystem.tex_name AS OS
     FROM 
         Manufacturer
     INNER JOIN 
@@ -56,6 +56,9 @@ CREATE VIEW vw_celulares AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
         Computer.sma_storage AS Almacenamiento,
@@ -63,10 +66,7 @@ CREATE VIEW vw_celulares AS
         Smartphone.sma_rear_camera AS Trasera,
         Smartphone.sma_front_camera AS Frontal,
         Smartphone.sma_battery AS Bateria,
-        OperativeSystem.tex_name AS OS,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        OperativeSystem.tex_name AS OS
     FROM 
         Manufacturer
     INNER JOIN 
@@ -97,14 +97,14 @@ CREATE VIEW vw_escritorio AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
         Computer.sma_storage AS Almacenamiento,
         Desktop.cod_format AS Formato,
-        Desktop.tex_color AS Color,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        Desktop.tex_color AS Color
     FROM 
         Manufacturer
     INNER JOIN 
@@ -128,14 +128,14 @@ CREATE VIEW vw_consolas AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
         Computer.sma_storage AS Almacenamiento,
         Console.tex_accessory AS Accesorio,
-        Console.cod_type AS Tipo,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        Console.cod_type AS Tipo
     FROM 
         Manufacturer
     INNER JOIN 
@@ -160,12 +160,12 @@ CREATE VIEW vw_televisores AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Interface.cod_panel_technology AS Panel,
         Interface.dec_diagonal AS Diagonal,
-        Interface.cod_resolution AS Resolucion,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        Interface.cod_resolution AS Resolucion
     FROM 
         Manufacturer
     INNER JOIN 
@@ -193,14 +193,14 @@ CREATE VIEW vw_monitores AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Interface.cod_panel_technology AS Panel,
         Interface.dec_diagonal AS Diagonal,
         Interface.cod_resolution AS Resolucion,
         Monitor.dec_response_time AS Ratio,
-        Monitor.sma_refresh_rate AS Rate,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        Monitor.sma_refresh_rate AS Rate
     FROM 
         Manufacturer
     INNER JOIN 
@@ -225,12 +225,12 @@ CREATE VIEW vw_impresoras AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         Printer.cod_type AS Tipo,
         Printer.tex_print_size AS 'Dimensiones impresión',
-        Printer.sma_print_speed AS 'Velocidad impresión',
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        Printer.sma_print_speed AS 'Velocidad impresión'
     FROM 
         Manufacturer
     INNER JOIN 
@@ -253,12 +253,12 @@ CREATE VIEW vw_graficas AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
+        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
         GraphicCard.sma_cores AS Cores,
         GraphicCard.sma_memory AS VRAM,
-        GraphicCard.cod_memory_type AS Tipo,
-        JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        GraphicCard.cod_memory_type AS Tipo
     FROM 
         Manufacturer
     INNER JOIN 
@@ -282,9 +282,10 @@ CREATE VIEW vw_accesorios AS
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
-        Accessory.tex_type AS Tipo,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
+        Accessory.tex_type AS Tipo
     FROM 
         Manufacturer
     INNER JOIN 
@@ -300,17 +301,18 @@ CREATE VIEW vw_accesorios AS
 -- Teatro en casa 
 --
 
-DROP VIEW IF EXISTS vw_teatroEnCasa;
-CREATE VIEW vw_teatroEnCasa AS
+DROP VIEW IF EXISTS vw_teatro;
+CREATE VIEW vw_teatro AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Audio.sma_power, "Watts") AS Titulo,
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
-        Audio.sma_power AS Watts,
-        HomeTheater.tex_port AS Puerto,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
+        Audio.sma_power AS Watts,
+        HomeTheater.tex_port AS Puerto
     FROM 
         Manufacturer
     INNER JOIN 
@@ -327,17 +329,18 @@ CREATE VIEW vw_teatroEnCasa AS
 -- Audio
 --
 
-DROP VIEW IF EXISTS vw_audio;
-CREATE VIEW vw_audio AS
+DROP VIEW IF EXISTS vw_audiosistema;
+CREATE VIEW vw_audiosistema AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Audio.sma_power, "Watts ", AudioSystem.tex_format_reproduction) AS Titulo,
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
-        Audio.sma_power AS Watts,
-        AudioSystem.tex_format_reproduction AS 'Formato reproducción',
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
+        Audio.sma_power AS Watts,
+        AudioSystem.tex_format_reproduction AS 'Formato reproducción'
     FROM 
         Manufacturer
     INNER JOIN 
@@ -355,18 +358,18 @@ CREATE VIEW vw_audio AS
 -- Parlante inalámbrico
 --
 
-DROP VIEW IF EXISTS vw_audio_inalambrico;
-CREATE VIEW vw_audio_inalambrico AS
+DROP VIEW IF EXISTS vw_inalambrico;
+CREATE VIEW vw_inalambrico AS
     SELECT 
         CONCAT(Manufacturer.tex_brand, " ", Audio.sma_power, "Watts ", IF(PortableSpeaker.bit_water_resistant=1, "Resistente al agua", "")  ) AS Titulo,
         Manufacturer.tex_brand AS Marca,
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
-        Audio.sma_power AS Watts,
-        PortableSpeaker.tim_battery AS Bateria,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio
-  --      
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+
+        Audio.sma_power AS Watts,
+        PortableSpeaker.tim_battery AS Bateria
     FROM 
         Manufacturer
     INNER JOIN 
