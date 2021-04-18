@@ -1,6 +1,6 @@
 /*
     @author kenneth.cruz@unah.hn
-    @version 0.1.9
+    @version 0.2.0
     @date 20/03/2021
 */
 
@@ -157,6 +157,10 @@ CREATE TABLE Supplier(
 --  Producto  
 --
 
+CREATE TABLE Category(
+    id SERIAL PRIMARY KEY, 
+    tex_category TEXT NOT NULL COMMENT "Nombre de las categorias disponibles en la tienda"
+) COMMENT = "Nombre de las categorias de cada producto";
 
 CREATE TABLE Manufacturer(
     id SERIAL PRIMARY KEY, 
@@ -168,6 +172,7 @@ CREATE TABLE Manufacturer(
 CREATE TABLE Product(
     id SERIAL PRIMARY KEY, 
     id_manufacturer_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Manufacturer", 
+    id_category_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Category", 
     -- tex_manufacturer TINYTEXT NOT NULL COMMENT "Fabricante del producto",
     -- tex_brand TINYTEXT NOT NULL COMMENT "Marca del producto",
     tex_model TINYTEXT NOT NULL COMMENT "Modelo para el producto",
