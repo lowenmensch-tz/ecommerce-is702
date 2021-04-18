@@ -9,12 +9,12 @@
 
 
 <div class="row">
-	{% for i in range(products|length//4+2):%}
+	{% for i in range(products|length//4+2): %} <!-- Redondear al estimado de Productos -->
   <div class="col-md-3">
     <div href="#" class="card card-product-grid">
-      <a href="#" class="img-wrap"> <img src="{{products[i].img_url}}" class="w-100	"> </a>
+      <a href="#" class="img-wrap"> <img src="{{products[i][4]}}" class="w-100	"> </a>
       <figcaption class="info-wrap">
-        <a href="/products/{{title}}/{{products[i]['name']}}" class="title">{{products[i]['name'].capitalize()}}</a>
+        <a href="/products/{{title}}/{{products[i][0]}}" class="title">{{products[i][0].capitalize()}}</a>
         <div class="rating-wrap">
           <ul class="rating-stars">
             <li style="width:80%" class="stars-active"> 
@@ -24,9 +24,9 @@
               <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
             </li>
           </ul>
-          <span class="label-rating text-muted"> 34 reviws</span>
+          <span class="label-rating text-muted"> 34 reviews</span>
         </div>
-        <div class="price mt-1">{{products[i]['price']}}</div> <!-- price-wrap.// -->
+        <div class="price mt-1">{{products[i][5]}}</div> <!-- price-wrap.// -->
       </figcaption>
     </div>
   </div>
@@ -34,12 +34,12 @@
 </div> <!-- row.// -->
 
 <div class="row">
-{% for i in range(products|length//4 +2 , products|length):%}
+{% for i in range(products|length//4 +2 , products|length):%} <!-- Redondear al estimado de Productos -->
   <div class="col-md-3 ">
     <div href="#" class="card card-product-grid">
-      <a href="#" class="img-wrap"> <img src="{{products[i].img_url}}" class="w-100"> </a>
+      <a href="#" class="img-wrap"> <img src="{{products[i][4]}}" class="w-100"> </a>
       <figcaption class="info-wrap">
-        <a href="/products/{{title}}/{{products[i]['name']}}" class="title">{{products[i]['name'].capitalize()}}</a>
+        <a href="/products/{{title}}/{{products[i][0]}}" class="title">{{products[i][0].capitalize()}}</a>
         
         <div class="rating-wrap">
           <ul class="rating-stars">
@@ -50,14 +50,15 @@
               <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 
             </li>
           </ul>
-          <span class="label-rating text-muted"> 34 reviws</span>
+          <span class="label-rating text-muted"> 34 reviews</span>
         </div>
-        <div class="price mt-1">{{products[i]['price']}}</div> <!-- price-wrap.// -->
+        <div class="price mt-1">{{products[i][5]}}</div> <!-- price-wrap.// -->
       </figcaption>
     </div>
   </div>
 {% endfor %}
 </div>
+
 </div> <!-- container .//  -->
 </section>
 <!-- Pagination -->
@@ -67,10 +68,10 @@
       <a class="page-link prev-btn" href="" tabindex="-1">Previous</a>
     </li>
     {% for i in range(1, length//8 + length%8):%}
-    {% if i<20 :%}
-	 <li class="page-item mx-1"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-   {% endif %}
-      {%endfor %}
+      {% if i<20 :%}
+        <li class="page-item mx-1"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+      {% endif %}
+    {%endfor %}
    
     <li class="page-item">
       <a class="page-link next-btn" href="">Next</a>
