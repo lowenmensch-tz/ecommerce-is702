@@ -13,8 +13,8 @@ def main(product):
 	con = dbConnectionService() # Objeto de conexión hacia la base de datos
 	con.connect() #Conexión hacia la base de datos
 
-	
-	query =  """
+	"""
+	query =  
 				SELECT 
 					tex_category
 				FROM 
@@ -22,14 +22,15 @@ def main(product):
 				WHERE
 					SUBSTRING({}, 1, 6) RLIKE SUBSTRING({}, 1, 6)  AS Compare
 					;
-			""".format( product_name )
+			.format( product_name )
 	
 	category = con.query( query )
+	"""
 
 	#Consulta para obtener todos los productos en la categoría
 	#product_items = con.query("SELECT * FROM vw_%s" % product_name) 
 	
-	product_items = con.query("SELECT * FROM vw_%s".format( product_name )) 
+	product_items = con.query("SELECT * FROM vw_%s" %  product_name ) 
 
 	# Paginación
 	page = int(request.args.get("page") or 1)
@@ -44,17 +45,17 @@ def main(product):
 
 	
 	
-@products_bp.route("/<product>/<product_item>")
-def view_product(product, product_item):
+@products_bp.route("/<product>/<product_id>")
+def view_product(product, product_id):
 
 	#product = Product(product)
 	
 	con = dbConnectionService() # Objeto de conexión hacia la base de datos
 	con.connect() #Conexión hacia la base de datos
 
-	print( con.query("SELECT * FROM Category WHERE SUBSTRING(tex_category, 1, 5) RLIKE SUBSTRING('%s', 1, 5);"%( product.strip())) )
+	#print( con.query("SELECT * FROM Category WHERE SUBSTRING(tex_category, 1, 5) RLIKE SUBSTRING('%s', 1, 5);"%( product.strip())) )
 
-	product_items = con.query( "SELECT * FROM vw_%s WHERE Titulo = '%s';"%( product.strip(), product_item.strip() ) ) #Consulta para obtener todos los productos en la categoría
+	product_items = con.query( "SELECT * FROM vw_%s WHERE id = '%s';"%( product.strip(), product_id.strip() ) ) # Consulta para obtener los datos del producto
 
 	quantity = product_items[0][6]
 
@@ -72,7 +73,7 @@ def view_product(product, product_item):
 		return render_template(
 			"view.html", 
 			results= product_items,  #{"item":product_name, "keyword":product_item}, 
-			title=product_item, 
+			title=product_items[0][0], 
 			quantity=quantity
 			) 
 
