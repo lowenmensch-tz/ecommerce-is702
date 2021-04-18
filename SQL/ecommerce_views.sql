@@ -19,7 +19,9 @@ CREATE VIEW vw_laptop AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -57,7 +59,9 @@ CREATE VIEW vw_celulares AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -98,7 +102,9 @@ CREATE VIEW vw_escritorio AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -129,7 +135,9 @@ CREATE VIEW vw_consolas AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Computer.tex_processor AS CPU,
         Computer.sma_ram AS RAM,
@@ -161,7 +169,9 @@ CREATE VIEW vw_televisores AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Interface.cod_panel_technology AS Panel,
         Interface.dec_diagonal AS Diagonal,
@@ -194,7 +204,9 @@ CREATE VIEW vw_monitores AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Interface.cod_panel_technology AS Panel,
         Interface.dec_diagonal AS Diagonal,
@@ -226,7 +238,9 @@ CREATE VIEW vw_impresoras AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Printer.cod_type AS Tipo,
         Printer.tex_print_size AS 'Dimensiones impresión',
@@ -254,7 +268,9 @@ CREATE VIEW vw_graficas AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         GraphicCard.sma_cores AS Cores,
         GraphicCard.sma_memory AS VRAM,
@@ -283,7 +299,9 @@ CREATE VIEW vw_accesorios AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Accessory.tex_type AS Tipo
     FROM 
@@ -309,7 +327,9 @@ CREATE VIEW vw_teatro AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Audio.sma_power AS Watts,
         HomeTheater.tex_port AS Puerto
@@ -337,7 +357,9 @@ CREATE VIEW vw_audiosistema AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Audio.sma_power AS Watts,
         AudioSystem.tex_format_reproduction AS 'Formato reproducción'
@@ -366,7 +388,9 @@ CREATE VIEW vw_inalambrico AS
         Product.tex_model AS Modelo,
         Product.tex_description AS Descripcion,
         JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, '$.photo1')) AS Foto,
-        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,
+        CONCAT('L. ', FORMAT(Inventory.dec_purchase_price, '#,#'), '.00')  AS Precio,  
+        Inventory.med_quantity AS Cantidad, 
+        Product.id AS id,
 
         Audio.sma_power AS Watts,
         PortableSpeaker.tim_battery AS Bateria
