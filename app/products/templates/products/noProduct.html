@@ -1,0 +1,33 @@
+{% include "base.html" %}
+
+<section class="section-content">
+<div class="container">
+
+<header class="section-heading">
+  <h6 class="section-title text-primary"> <small>Products/{{title.capitalize()}}</small></h6>
+</header><!-- sect-heading -->
+
+
+<a><p>Los productos en está sección no estan disponibles</p></a>
+<br>
+<br>
+<br>
+
+<div class="row">
+  
+  
+  <div class="col-md-3">
+    <div href="#" class="card card-product-grid">
+      <a href="#" class="img-wrap"> <img src="https://compunel.com/dev/wp-content/themes/furniture/images/no_product.png" class="w-100	"> </a>
+      <figcaption class="info-wrap">
+        <a href="#" class="title"><strong>{{ title.capitalize() }}:</strong> Ningún producto disponible</a>
+        <div class="price mt-1">L 0.00</div> <!-- price-wrap.// -->
+      </figcaption>
+    </div>
+  </div>
+
+</div>
+
+</div> <!-- container .//  -->
+</section>
+<script src="/static/js/pagination.js"> </script>
