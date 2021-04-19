@@ -441,3 +441,93 @@ CREATE VIEW vw_inalambrico AS
     INNER JOIN 
         Category ON Product.id_category_fk = Category.id 
 ;
+DROP VIEW IF EXISTS vw_informationProduct;
+CREATE VIEW vw_informationProduct AS 
+    (
+        select 
+            `vw_celulares`.`Titulo` AS `Titulo`,`vw_celulares`.`Foto` AS `Foto`,`vw_celulares`.`Precio` AS `Precio`,`vw_celulares`.`Categoria` AS `Categoria`,`vw_celulares`.`id` AS `id` 
+        from `Ecommerce`.`vw_celulares`
+    ) 
+        union 
+    (
+        select 
+            `vw_laptops`.`Titulo` AS `Titulo`,`vw_laptops`.`Foto` AS `Foto`,`vw_laptops`.`Precio` AS `Precio`,`vw_laptops`.`Categoria` AS `Categoria`,`vw_laptops`.`id` AS `id` 
+        from `Ecommerce`.`vw_laptops`
+    ) 
+        union 
+    (
+        select 
+            `vw_monitores`.`Titulo` AS `Titulo`,`vw_monitores`.`Foto` AS `Foto`,`vw_monitores`.`Precio` AS `Precio`,`vw_monitores`.`Categoria` AS `Categoria`,`vw_monitores`.`id` AS `id` 
+        from `Ecommerce`.`vw_monitores`
+    ) 
+    union 
+    (
+        select 
+            `vw_escritorio`.`Titulo` AS `Titulo`,`vw_escritorio`.`Foto` AS `Foto`,`vw_escritorio`.`Precio` AS `Precio`,`vw_escritorio`.`Categoria` AS `Categoria`,`vw_escritorio`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_escritorio`
+    ) 
+    union 
+    (
+        select 
+            `vw_consolas`.`Titulo` AS `Titulo`,`vw_consolas`.`Foto` AS `Foto`,`vw_consolas`.`Precio` AS `Precio`,`vw_consolas`.`Categoria` AS `Categoria`,`vw_consolas`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_consolas`
+    ) 
+    union 
+    (
+        select 
+            `vw_televisores`.`Titulo` AS `Titulo`,`vw_televisores`.`Foto` AS `Foto`,`vw_televisores`.`Precio` AS `Precio`,`vw_televisores`.`Categoria` AS `Categoria`,`vw_televisores`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_televisores`
+    ) 
+    union 
+    (
+        select 
+            `vw_monitores`.`Titulo` AS `Titulo`,`vw_monitores`.`Foto` AS `Foto`,`vw_monitores`.`Precio` AS `Precio`,`vw_monitores`.`Categoria` AS `Categoria`,`vw_monitores`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_monitores`
+    ) 
+    union 
+    (
+        select 
+            `vw_impresoras`.`Titulo` AS `Titulo`,`vw_impresoras`.`Foto` AS `Foto`,`vw_impresoras`.`Precio` AS `Precio`,`vw_impresoras`.`Categoria` AS `Categoria`,`vw_impresoras`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_impresoras`
+    ) 
+    union 
+    (
+        select 
+            `vw_graficas`.`Titulo` AS `Titulo`,`vw_graficas`.`Foto` AS `Foto`,`vw_graficas`.`Precio` AS `Precio`,`vw_graficas`.`Categoria` AS `Categoria`,`vw_graficas`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_graficas`
+    ) 
+    union 
+    (
+        select 
+            `vw_accesorios`.`Titulo` AS `Titulo`,`vw_accesorios`.`Foto` AS `Foto`,`vw_accesorios`.`Precio` AS `Precio`,`vw_accesorios`.`Categoria` AS `Categoria`,`vw_accesorios`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_accesorios`
+    ) 
+    union 
+    (
+        select 
+            `vw_teatro`.`Titulo` AS `Titulo`,`vw_teatro`.`Foto` AS `Foto`,`vw_teatro`.`Precio` AS `Precio`,`vw_teatro`.`Categoria` AS `Categoria`,`vw_teatro`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_teatro`
+    ) 
+    union 
+    (
+        select 
+            `vw_audiosistema`.`Titulo` AS `Titulo`,`vw_audiosistema`.`Foto` AS `Foto`,`vw_audiosistema`.`Precio` AS `Precio`,`vw_audiosistema`.`Categoria` AS `Categoria`,`vw_audiosistema`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_audiosistema`
+    ) 
+    union 
+    (
+        select 
+            `vw_inalambrico`.`Titulo` AS `Titulo`,`vw_inalambrico`.`Foto` AS `Foto`,`vw_inalambrico`.`Precio` AS `Precio`,`vw_inalambrico`.`Categoria` AS `Categoria`,`vw_inalambrico`.`id` AS `id` 
+        from 
+            `Ecommerce`.`vw_inalambrico`
+    ) 
+;
