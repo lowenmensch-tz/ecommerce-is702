@@ -23,8 +23,9 @@ def main(product):
 	start = previous * 8
 	end = start + 8
 
-	if product_items is None:
-		abort(404)
+	if not product_items :
+		#abort(404)
+		return render_template("noProduct.html", title=product_name )
 	else:
 		return render_template("list.html", products= product_items[start:end], title=product_name , length=len(product_items))
 
