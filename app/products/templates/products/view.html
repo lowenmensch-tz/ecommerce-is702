@@ -1,6 +1,14 @@
 {%  include "base.html" %}
 
-
+<!-- Función AJAX para actualizar el carrito de compras -->
+<script>
+    function updateCart(){
+      idProduct = ' {{ results[7] }} '.replace(/&#39;/g,"'").trim();
+      cant = document.getElementById("quantitySelect").value;
+      $.ajax({type: "POST", url: '/addToCart', data: {'idProduct':idProduct,'cantidad': cant }});
+      document.getElementById("cartBadge").innerHTML = parseInt(document.getElementById("cartBadge").innerHTML)+1;
+    }
+</script>
 
 <div class="container mt-5 ">
 <div class="card">
@@ -8,23 +16,23 @@
     <aside class="col-sm-5 border-right">
 <article class="gallery-wrap"> 
 <div class="img-big-wrap">
-  <div> <a href="#"><img src="{{results[0][4]}}"></a></div>
+  <div> <a href="#"><img src="{{results[4]}}"></a></div>
 </div> <!-- slider-product.// -->
 </article> <!-- gallery-wrap .end// -->
     </aside>
     <aside class="col-sm-7">
 <article class="card-body p-5">
-  <h3 class="title mb-3">{{results[0][0]}}</h3>
+  <h3 class="title mb-3">{{results[0]}}</h3>
 
 <p class="price-detail-wrap"> 
   <span class="price h3 text-primary"> 
-    <span class="currency">HNL </span><span class="num">{{results[0][5]}}</span>
+    <span class="currency">HNL </span><span class="num">{{results[5]}}</span>
   </span> 
 
 </p> <!-- price-detail-wrap .// -->
 <dl class="item-property">
   <dt>Descripción</dt>
-  <dd><p>{{results[0][3]}}</p></dd>
+  <dd><p>{{results[3]}}</p></dd>
 
 <hr>
   <div class="row">
@@ -37,9 +45,9 @@
           <dd><strong> <p style="color:brown">Este producto no está disponible en este momento</p> </strong></dd>
           
           {% else %}  
-            <dt>Quantity: </dt>
+            <dt>Cantidad: </dt>
               <dd>
-                <select class="form-control form-control-sm" style="width:70px;">
+                <select class="form-control form-control-sm" style="width:70px;" id="quantitySelect">
               
               {% for i in range(1, quantity+1) %}
                 <option> {{ i }} </option>
@@ -57,16 +65,13 @@
   <hr>
 
   {% if quantity > 0 %}
-    <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
-    <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
+    <a onclick="updateCart();" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Añadir al Carrito </a>
   {% endif %}
 
 </article> <!-- card-body.// -->
     </aside> <!-- col.// -->
   </div> <!-- row.// -->
 </div> <!-- card.// -->
-
-
 
 </div>
 </div>

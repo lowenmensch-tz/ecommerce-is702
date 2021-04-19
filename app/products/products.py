@@ -13,22 +13,7 @@ def main(product):
 	con = dbConnectionService() # Objeto de conexión hacia la base de datos
 	con.connect() #Conexión hacia la base de datos
 
-	"""
-	query =  
-				SELECT 
-					tex_category
-				FROM 
-					Category
-				WHERE
-					SUBSTRING({}, 1, 6) RLIKE SUBSTRING({}, 1, 6)  AS Compare
-					;
-			.format( product_name )
-	
-	category = con.query( query )
-	"""
-
 	#Consulta para obtener todos los productos en la categoría
-	#product_items = con.query("SELECT * FROM vw_%s" % product_name) 
 	
 	product_items = con.query("SELECT * FROM vw_%s" %  product_name ) 
 
@@ -53,8 +38,6 @@ def view_product(product, product_id):
 	con = dbConnectionService() # Objeto de conexión hacia la base de datos
 	con.connect() #Conexión hacia la base de datos
 
-	#print( con.query("SELECT * FROM Category WHERE SUBSTRING(tex_category, 1, 5) RLIKE SUBSTRING('%s', 1, 5);"%( product.strip())) )
-
 	product_items = con.query( "SELECT * FROM vw_%s WHERE id = '%s';"%( product.strip(), product_id.strip() ) ) # Consulta para obtener los datos del producto
 
 	quantity = product_items[0][6]
@@ -63,16 +46,13 @@ def view_product(product, product_id):
 	if product_items[0][6]  > 10:
 		quantity = 10
 
-	#product_items = product.return_items()
-	#product_items = [dict(p) for p in product.return_items()] 
-	#product_name = [p for p in product_items if p['name'].lower() == product_item.lower()]
 
 	if len( product_items ) == 0:
 		abort(404)
 	else:
 		return render_template(
 			"view.html", 
-			results= product_items,  #{"item":product_name, "keyword":product_item}, 
+			results= list(product_items[0]),  
 			title=product_items[0][0], 
 			quantity=quantity
 			) 
