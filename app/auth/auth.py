@@ -33,3 +33,8 @@ def signup():
 @auth_bp.route("/forgot_password", methods=["GET", "POST"])
 def forgot_pass():
 	return render_template("forgot_password.html", title="forgot password")
+
+
+@auth_bp.route("/process_payment", methods=["GET","POST"])
+def process_payment():
+	return render_template("process_payment.html", title="Process payment")
