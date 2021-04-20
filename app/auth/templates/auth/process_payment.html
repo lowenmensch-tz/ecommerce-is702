@@ -1,0 +1,203 @@
+{% include "base.html"%}
+
+
+
+<style>
+  #header h5, h6 { display:inline; }
+</style>
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+
+<!-- ============================ COMPONENT REGISTER   ================================= -->
+  <div class="card mx-auto" style="max-width: 95vw; margin-top:5vh;">
+    <article class="card-body">
+
+      <header class="mb-4">
+        <h4 class="card-title">Procesar pago</h4>      
+        <div id="header">
+              <h5 class="card-title">Track: <h6 class="text-muted" id="track">13151313asd3s5a1d351</h6></h4>
+        </div>
+      </header>
+
+      <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
+        <div class="row "> <!-- Contiene dos -->
+          <div class="col-10">
+              <article class="card-body">
+                <header class="mb-4"><h5 class="card-title">Dirección de envío</h4></header>
+                    
+                  <p id="address"> 954 Mackenzie Ways Apt. 822,	East Scottie </p>
+                
+              </article><!-- card-body.// -->
+          </div> <!-- card Dirección x2.// -->
+
+          <div class="col-2">
+            <p class="text-center mt-4"><a a href="#modalAddDirection" role="button" class="btn btn-large btn-primary" data-toggle="modal">Cambiar</a></p>
+          </div> <!-- card Cambiar direcciónx2.// -->
+
+        </div> 
+      </div> <!-- Contiene dos div info/cambiar-->
+
+      <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
+        <div class="row "> <!-- Contiene dos -->
+          <div class="col-10">
+              <article class="card-body">
+                <header class="mb-4"><h5 class="card-title">Tarjeta de credito</h4></header>
+                    
+                  <p id="creditCard"> American Express, 5555555555554444,  12/2022</p>
+                
+              </article><!-- card-body.// -->
+          </div> <!-- card Dirección x2.// -->
+          <div class="col-2">
+            <p class="text-center mt-4"><a a href="#modalAddCreditCard" role="button" class="btn btn-large btn-primary" data-toggle="modal" onclick="generateMonth()">Cambiar</a></p>
+          </div> <!-- card Cambiar direcciónx2.// -->
+
+        </div> 
+      </div> <!-- Contiene dos div info/cambiar-->
+
+
+      <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
+        <div class="row "> <!-- Contiene dos -->
+          <div class="col-10">
+              <article class="card-body">
+                <header class="mb-4"><h5 class="card-title">Cuenta bancaria</h4></header>
+                    
+                  <p id="bank"> ES19 1234 1234 56 0123456789</p>
+                
+              </article><!-- card-body.// -->
+          </div> <!-- card Dirección x2.// -->
+          <div class="col-2">
+            <p class="text-center mt-4"><a a href="#modalAddBank" role="button" class="btn btn-large btn-primary" data-toggle="modal" onclick="generateMonth()">Cambiar</a></p>
+          </div> <!-- card Cambiar direcciónx2.// -->
+
+        </div> 
+      </div> <!-- Contiene dos div info/cambiar-->
+
+
+    </article><!-- card-body.// -->
+  </div> <!-- card .// -->
+
+
+  <!-- Modal / Ventana / Agregar Dirección -->
+<div id="modalAddDirection" class="modal fade">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Nueva Dirección de envio</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form id="frm_address"> 
+              <div class="form-group">
+                <label for="streetAddress">Calle</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Dirección de la calle">
+                <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+              </div>
+              <div class="form-group">
+                <label for="numberStreet">Número de la calle</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Número de la calle">
+              </div>
+              <div class="form-group">
+                <label for="zip">Código postal</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Código postal">
+              </div>
+              <div class="form-group">
+                <label for="city">Ciudad</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nombre de la ciudad">
+              </div>
+              <div class="form-group">
+                <label for="state">Estado</label>
+                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nombre del estado o departamento">
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Aceptar</button>
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger">Eliminar</button>-->
+              </div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+  <!-- Modal / Ventana / Agregar Tarjeta de credito -->
+  <div id="modalAddCreditCard" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Nueva Tarjeta de crédito</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form id="frm_creditCard">
+                <div class="form-group">
+                  <label for="streetAddress">Número de tarjeta</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Número de tarjeta">
+                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                </div>
+                <div class="form-group">
+                  <label for="numberStreet">Fecha de expiración</label>
+
+                  <select class="form-control form-control" id="hireDate">
+                  </select>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Aceptar</button>
+                  <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-danger">Eliminar</button>-->
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+   <!-- Modal / Ventana / Agregar Tarjeta de credito -->
+   <div id="modalAddBank" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Cuenta bancaria</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form id="frm_bank">
+                <div class="form-group">
+                  <label for="streetAddress">Cuenta bancaria</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Cuenta bancaria asociada con el banco">
+                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Aceptar</button>
+                  <!--<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-danger">Eliminar</button>-->
+                </div>
+              </form>
+            </div>
+        </div>
+    </div>
+  </div>
+<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+</section>
+
+<script>
+
+function generateMonth(){
+
+  var select = document.getElementById("hireDate");
+
+  for (let index = 1; index < 13; index++) {
+
+      select.innerHTML += `<option>${index}</option>`;
+  }
+
+}
+
+</script>
