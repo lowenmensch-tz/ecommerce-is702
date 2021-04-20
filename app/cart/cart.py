@@ -12,6 +12,8 @@ def listItems():
 	con.connect()
 	total = 0
 
+	print(products)
+
 	for product in products:
 		p = con.query("SELECT * FROM vw_%s WHERE id = '%s';" % (product[2],product[0]))[0]
 		price = re.sub("(L\.)|(,)","",str(p[5])).strip() # Limpiar el valor del precio
