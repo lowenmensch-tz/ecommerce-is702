@@ -75,6 +75,24 @@
       </div> <!-- Contiene dos div info/cambiar-->
 
 
+      <div class="mx-auto" style="max-width: 80vw; margin-top:5vh;"> 
+          <article class="card-body">
+            <header class="mb-4"><h4 class="card-title">Información del Cliente</h4></header>
+
+              <div id="header"> <h5 class="card-title">Cliente:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="client">Fernando Lagos</h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Total a producto:&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="totalPay">L. 19000.00</h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Impuestos (15%):&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="isv">15%</h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Total a pagar:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="totalPay">L. 2185.00</h6></h5> </div>
+            
+          </article><!-- card-body.// -->
+        </div>
+
+        <div class="col-2">
+          <p class="text-center mt-4"><a a href="" role="button" class="btn btn-lg btn-primary" data-toggle="modal">Realizar pago</a></p>
+        </div> <!-- card Cambiar direcciónx2.// -->
+
+      </div>
+
     </article><!-- card-body.// -->
   </div> <!-- card .// -->
 
@@ -138,11 +156,13 @@
                   <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
                 </div>
                 <div class="form-group">
-                  <label for="numberStreet">Fecha de expiración</label>
-
-                  <select class="form-control form-control" id="hireDate">
-                  </select>
-
+                    <label>Fecha de Caducidad</label>
+                    <input type="month" min="2020-05" value="2025-05" class="form-control" placeholder="" name="fCaducidad">
+                </div>
+                <div class="form-group">
+                  <label for="streetAddress">CVC</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="CVV o CVC">
+                  <small id="emailHelp" class="form-text text-muted">Grupo de 3 o 4 números situado en el reverso de la tarjeta de crédito</small>
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">Aceptar</button>
