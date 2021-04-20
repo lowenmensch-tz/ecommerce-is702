@@ -42,7 +42,7 @@ def home():
                     Categoria, 
                     id
                 FROM 
-                    vw_laptop
+                    vw_laptops
                 LIMIT 4
             )
             UNION 

@@ -50,3 +50,26 @@ class dbConnectionService:
         self.connection.commit()
         print('Success!')
         self.connection.close()
+
+    
+    #Coincidencia de productos 
+    def findAllProduct(self, search):
+
+        query = """
+            SELECT 
+                Product.id AS id, 
+                vw_informationProduct.Titulo AS Title,
+                JSON_UNQUOTE(JSON_EXTRACT(Product.jso_link_photo, "$.photo1")) AS Photo,
+                vw_informationProduct.Precio AS Price,
+                vw_informationProduct.Categoria AS Category
+            FROM 
+                Product
+            INNER JOIN 
+                vw_informationProduct ON Product.id = vw_informationProduct.id
+            WHERE 
+                MATCH (Product.tex_model, Product.tex_description)
+                AGAINST ('{}' IN NATURAL LANGUAGE MODE)
+            ;
+        """.format( search )
+
+        return self.query( sqlQuery=query )
