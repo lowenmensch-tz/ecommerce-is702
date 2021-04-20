@@ -12,8 +12,20 @@
         
         var total = parseFloat((document.getElementById(priceId).innerHTML).replace(/(,)|(L\.)/g,'').trim());
         var totalPrice = parseFloat((document.getElementById("finalPrice").innerHTML).replace(/(,)|(L\.)/g,'').trim());
+
+        // Calcular el nuevo total a pagar
         var finalPrice = totalPrice - total;
+
+        // Eliminar el producto de la sesión
+        $.ajax({type: "POST", url: '/deleteItem', data: {'idProduct':priceId}});
+
+        // Actualizar el valor en el contador de Productos
+        document.getElementById("cartBadge").innerHTML = parseInt(document.getElementById("cartBadge").innerHTML)-1;
+
+        // Eliminar el objeto HTML de la vista
         $(`#item${priceId}`).remove();
+
+        // Actualizar el valor final
         document.getElementById("finalPrice").innerHTML = `L. ${finalPrice}`;
     }
 
@@ -30,6 +42,9 @@
         value = value - 1;
         var subtotal = unitPrice * value;
         var finalPrice = totalPrice - unitPrice;
+
+        //Actualizar el valor en la sesión
+        $.ajax({type: "POST", url: '/updateQuantity', data: {'idProduct':priceId,'cantidad': value }});
 
         //Actualizar la cantidad
         $input.val(value); 
@@ -53,6 +68,9 @@
         value = value + 1;
         var subtotal = unitPrice * value;
         var finalPrice = totalPrice + unitPrice ;
+
+        //Actualizar el valor en la sesión
+        $.ajax({type: "POST", url: '/updateQuantity', data: {'idProduct':priceId,'cantidad': value }});
 
         //Actualizar la cantidad
         $input.val(value); 

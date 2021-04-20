@@ -60,7 +60,8 @@ def view_product(product, product_id):
 				"view.html", 
 				results= list(product_items[0]),  
 				title=product_items[0][0], 
-				quantity=quantity
+				quantity=quantity,
+				category=product.strip()
 				)
 		
 	except: 
