@@ -1,0 +1,108 @@
+{% include "base.html" %}
+
+</script>
+
+<link rel="stylesheet" href="/static/css/shoppingList.css">
+
+<script>
+
+    function deleteItem(e){
+        var $this = $(e);
+        var priceId = e.dataset.pid;
+        
+        var total = parseFloat((document.getElementById(priceId).innerHTML).replace(/(,)|(L\.)/g,'').trim());
+        var totalPrice = parseFloat((document.getElementById("finalPrice").innerHTML).replace(/(,)|(L\.)/g,'').trim());
+        var finalPrice = totalPrice - total;
+        $(`#item${priceId}`).remove();
+        document.getElementById("finalPrice").innerHTML = `L. ${finalPrice}`;
+    }
+
+    function minus (e) {
+        
+        var $this = $(e);
+        var $input = $this.closest('div').find('input');
+        
+        var value = parseInt($input.val());
+        var priceId = e.dataset.pid;
+        var unitPrice = parseFloat((e.dataset.uprice).replace(/(,)|(L\.)/g,'').trim());
+        var totalPrice = parseFloat((document.getElementById("finalPrice").innerHTML).replace(/(,)|(L\.)/g,'').trim());
+        
+        value = value - 1;
+        var subtotal = unitPrice * value;
+        var finalPrice = totalPrice - unitPrice;
+
+        //Actualizar la cantidad
+        $input.val(value); 
+
+        //Actualizar el Subtotal
+        document.getElementById(priceId).innerHTML = `L. ${subtotal}`;
+        document.getElementById("finalPrice").innerHTML = `L. ${finalPrice}`;
+
+    }
+ 
+   function plus (e) {
+        
+        var $this = $(e);
+        var $input = $this.closest('div').find('input');
+        
+        var value = parseInt($input.val());
+        var priceId = e.dataset.pid;
+        var unitPrice = parseFloat((e.dataset.uprice).replace(/(,)|(L\.)/g,'').trim());
+        var totalPrice = parseFloat((document.getElementById("finalPrice").innerHTML).replace(/(,)|(L\.)/g,'').trim());
+        
+        value = value + 1;
+        var subtotal = unitPrice * value;
+        var finalPrice = totalPrice + unitPrice ;
+
+        //Actualizar la cantidad
+        $input.val(value); 
+
+        //Actualizar el Subtotal
+        document.getElementById(priceId).innerHTML = `L. ${subtotal}`;
+        document.getElementById("finalPrice").innerHTML = `L. ${finalPrice}`;
+        
+    }
+
+</script>
+
+<div class="shopping-cart">
+    <!-- Title -->
+    <div class="title">
+      Lista de Compras
+    </div>
+   
+    {% for i in range (0, len): %}
+    <!-- Products -->
+        <div class="item" id = "item{{ cant[i][2] }}">
+            <div class="buttonsCart">
+                <span onclick="deleteItem(this);" data-pid="{{cant[i][2]}}" class="delete-btn"></span>
+            </div>
+            
+            <div class="imgContainer">
+                    <img class="image" src="{{ items[i][4] }}" />
+            </div>
+        
+            <div class="description">
+                <span>{{ items[i][0] }}
+            </div>
+        
+            <div class="quantity">
+                <button onclick="plus(this);" class="plus-btn" type="button" name="button" data-pid="{{ cant[i][2] }}" data-position = "{{ i }}" data-uprice="{{ items[i][5] }}" >
+                <img src="/static/images/misc/plusIcon.svg" alt="" />
+                </button>
+                <input type="text" name="name" value=" {{ cant[i][0] }} ">
+                <button onclick="minus(this);" class="minus-btn" type="button" name="button" data-pid="{{cant[i][2]}}" data-position = "{{ i }}" data-uprice="{{ items[i][5] }}" >
+                <img src="/static/images/misc/minusIcon.svg" alt="" />
+                </button>
+            </div>
+            <div  class="total-price" id="{{ cant[i][2] }}" >L. {{ cant[i][1] }}</div>
+        </div>
+    {% endfor %}
+
+    <div class="Total">
+
+        <div class="title-price"> <span> Total a Pagar: </span>  </div>
+        <div class="final-price" id = "finalPrice">L. {{ tot }}</div>
+        <button class="process-payment" > Procesar Pago </button>
+    </div>
+</div>
