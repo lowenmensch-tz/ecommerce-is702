@@ -4,8 +4,9 @@
 <script>
     function updateCart(){
       idProduct = ' {{ results[7] }} '.replace(/&#39;/g,"'").trim();
+      category = ' {{ category }} '.replace(/&#39;/g,"'").trim();
       cant = document.getElementById("quantitySelect").value;
-      $.ajax({type: "POST", url: '/addToCart', data: {'idProduct':idProduct,'cantidad': cant }});
+      $.ajax({type: "POST", url: '/addToCart', data: {'idProduct':idProduct,'cantidad': cant, 'categoria': category }});
       document.getElementById("cartBadge").innerHTML = parseInt(document.getElementById("cartBadge").innerHTML)+1;
     }
 </script>

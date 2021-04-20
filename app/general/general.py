@@ -10,11 +10,12 @@ general_bp = Blueprint("general_bp", __name__ , template_folder="templates/gener
 def home():
 
     
-    # Crear la sesión (si no existe) que cuente la cantidad de productos en el carrito de compras
+    # Crear la sesión (si no existe) que cuente la cantidad de productos en el carrito de compras y que almacene la lista con los productos y cantidades
 
     #session.clear()
-    if session.get('cartCounter') is None:
+    if session.get('cartCounter') is None or session.get('shoppingCart') is None:
         session['cartCounter'] = 0
+        session['shoppingCart'] = []
 
     con = dbConnectionService() # Objeto de conexión hacia la base de datos
     con.connect()
@@ -69,11 +70,18 @@ def search():
 
 @general_bp.route("/addToCart",methods = ['POST'])
 def addToCart():
-    # Obtener y limpiar los datos del post, se obtiene una lista con el id y la cantidad a comprar de ese producto
-    data = re.sub("(b'idProduct=)|(cantidad=)|(')","",str(request.get_data())).split("&")
 
+    # Obtener y limpiar los datos del post, se obtiene una lista con el id y la cantidad a comprar de ese producto
+    data = re.sub("(b'idProduct=)|(cantidad=)|(categoria=)|(')","",str(request.get_data())).split("&")
+
+    # Se aumenta la cantidad de productos en la sesión
     counter = int(session['cartCounter'])+1
     session['cartCounter'] = counter
+
+    # Se agrega a la sesión el producto con su cantidad
+    shoppingList = session['shoppingCart']
+    shoppingList.append(data)
+    session['shoppingCart'] = shoppingList
 
     return "True"
 

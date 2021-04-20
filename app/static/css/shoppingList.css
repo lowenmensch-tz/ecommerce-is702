@@ -1,0 +1,255 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color:#FFFFFF;
+    font-family: 'Roboto', sans-serif;
+}
+
+.shopping-cart {
+    width: 1000px;
+    height: auto;
+    margin: 80px auto;
+    background: #FFFFFF;
+    box-shadow: 1px 2px 3px 0px rgba(0,0,0,0.10);
+    border-radius: 6px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    height: 60px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 20px 30px;
+    color: #5E6977;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.title-price {
+    height: 120px;
+    margin-left: 200px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 50px 30px;
+    color: #5E6977;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.final-price {
+    height: 120px;
+    margin-left: 5px;
+    border-bottom: 1px solid #E1E8EE;
+    padding: 50px 5px;
+    color: #5E6977;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.item {
+    padding: 20px 30px;
+    height: 300px;
+    display: flex;
+}
+
+.Total {
+    padding: 20px 30px;
+    height: 150px;
+    display: flex;
+}
+
+.item:nth-child(3) {
+    border-top:  1px solid #E1E8EE;
+    border-bottom:  1px solid #E1E8EE;
+}
+
+.buttonsCart {
+    position: relative;
+    padding-top: 30px;
+    margin-right: 60px;
+}
+
+.delete-btn,
+.like-btn {
+    display: inline-block;
+    Cursor: pointer;
+}
+
+.delete-btn {
+    width: 18px;
+    height: 17px;
+    background: url('/static/images/misc/delete-icn.svg') no-repeat center;
+}
+
+.like-btn {
+    position: absolute;
+    top: 9px;
+    left: 15px;
+    background: url(''); 
+    width: 60px;
+    height: 60px;
+    background-size: 2900%;
+    background-repeat: no-repeat;
+}
+
+.is-active {
+    animation-name: animate;
+    animation-duration: .8s;
+    animation-iteration-count: 1;
+    animation-timing-function: steps(28);
+    animation-fill-mode: forwards;
+}
+   
+@keyframes animate {
+    0%   { background-position: left;  }
+    50%  { background-position: right; }
+    100% { background-position: right; }
+}
+
+.image {
+    
+    max-width: 99%;
+    max-height: 99%;
+}
+ 
+.imgContainer {
+    height: 250px;
+    width: 250px;
+}
+
+.description {
+  padding-top: 10px;
+  margin-right: 60px;
+  width: 115px;
+  font-size: 20px;
+
+}
+ 
+.description span {
+  display: block;
+  font-size: 14px;
+  color: #43484D;
+  font-weight: 400;
+  font-size: 20px;
+}
+ 
+.description span:first-child {
+  margin-bottom: 5px;
+}
+
+.description span:last-child {
+  font-weight: 300;
+  margin-top: 8px;
+  color: #86939E;
+}
+
+.quantity {
+    padding-top: 20px;
+    margin-right: 60px;
+}
+.quantity input {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 32px;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+}
+
+buttonCart[class*=btn] {
+    width: 30px;
+    height: 30px;
+    background-color: #E1E8EE;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.process-payment{
+    padding: 10px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 30px 30px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 4px solid #4CAF50;
+    border-radius: 8px;
+}
+
+.process-payment:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+
+.minus-btn img {
+    margin-bottom: 3px;
+}
+.plus-btn img {
+    margin-top: 2px;
+}
+
+buttonCart:focus,
+input:focus {
+    outline:0;
+}
+
+.total-price {
+    width: 83px;
+    padding-top: 27px;
+    text-align: center;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+}
+
+@media (max-width: 800px) {
+    .shopping-cart {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+    }
+    .item {
+        height: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .image img {
+        width: 50%;
+    }
+    .image,
+    .quantity,
+    .description {
+        width: 100%;
+        text-align: center;
+        margin: 6px 0;
+    }
+    .buttonsCart {
+        margin-right: 20px;
+    }
+    .Total {
+        padding: 20px 30px;
+        height: auto;
+    }
+    .title-price {
+        margin-left: 2%;
+        width: auto;
+        height: auto;
+    }
+    .final-price {
+        margin-left: 0.25%;
+        height: auto;
+        width: auto;
+    }
+}
