@@ -1,6 +1,6 @@
 /*
     @author kenneth.cruz@unah.hn
-    @version 0.2.0
+    @version 0.2.1
     @date 20/03/2021
 */
 
@@ -13,28 +13,31 @@ USE Ecommerce;
 --  Login
 --  
 
-CREATE TABLE Login(
-    id SERIAL PRIMARY KEY, 
-    tex_email VARCHAR(40) NOT NULL COMMENT "Email con el que entra el sistema"
-    CHECK( tex_email RLIKE "[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]+)+"), 
-    tim_time TIMESTAMP NOT NULL DEFAULT NOW() COMMENT "Tiempo de ingreso al sistema"
-) COMMENT "Registro de ingreso al sistema";
 
+
+CREATE TABLE User(
+    id SERIAL PRIMARY KEY, 
+    -- id_person_fk BIGINT UNSIGNED NOT NULL UNIQUE, 
+    tex_email VARCHAR(40) NOT NULL UNIQUE COMMENT "Email con el que entra el sistema"
+    CHECK( tex_email RLIKE "[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]+)+"), 
+    tex_password TINYTEXT NOT NULL COMMENT "Contraseña",
+    cod_rol ENUM("cliente", "empresa", "empleado", "administrador") DEFAULT "cliente" COMMENT "Roles del usuario en el sistema"
+
+) COMMENT "Rol de acceso al sistema, dependiendo de este tendrá cierto control de acceso";
 
 CREATE TABLE Person(
     id SERIAL PRIMARY KEY, 
-    -- id_login_fk BIGINT UNSIGNED NOT NULL UNIQUE COMMENT "Clave foránea relacionado con el login de usuario",
+    id_user_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad User",
     tex_dni TINYTEXT NOT NULL COMMENT "Identificación de usuario asignada por parte de una nación"
     CHECK( tex_dni RLIKE "[0-9- ]+" ),
     tex_first_name TINYTEXT NOT NULL COMMENT "Primer nombre de la persona"
     CHECK( tex_first_name RLIKE "[a-zA-Z ]+" ),
     tex_last_name TINYTEXT NOT NULL COMMENT "Apellido de la persona"
     CHECK( tex_first_name RLIKE "[a-zA-Z ]+" ),
-    bit_gender BIT(1) DEFAULT 0 NOT NULL COMMENT "Género: 0 Mujer | 1 Hombre",
+    cod_gender ENUM("female", "male", "other") NOT NULL DEFAULT "female" COMMENT "Género de la persona",
     tim_birthday TIMESTAMP NOT NULL COMMENT "Fecha de nacimiento",
-    tex_email VARCHAR(40) NOT NULL UNIQUE COMMENT "Email con el que entra el sistema"
-    CHECK( tex_email RLIKE "[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]+)+")
-
+    
+    FOREIGN KEY (id_user_fk) REFERENCES User(id)
 ) COMMENT "Entidad que contiene los atriutos básicos, información necesaria para una persona";
 
 CREATE TABLE Country(
@@ -44,14 +47,20 @@ CREATE TABLE Country(
 ) COMMENT "Nombre de país";
 
 
-CREATE TABLE User(
-    id SERIAL PRIMARY KEY, 
-    id_person_fk BIGINT UNSIGNED NOT NULL UNIQUE, 
-    tex_password TINYTEXT NOT NULL COMMENT "Contraseña",
-    cod_rol ENUM("administrador", "empleado", "cliente") DEFAULT "cliente",
 
-    FOREIGN KEY (id_person_fk) REFERENCES Person(id)
-) COMMENT "Rol de acceso al sistema, dependiendo de este tendrá cierto control de acceso";
+--
+--  Clientes corporativos
+--
+
+CREATE TABLE Business(
+    id SERIAL PRIMARY KEY, 
+    id_user_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad User",
+    tex_name TINYTEXT NOT NULL COMMENT "Nombre de la empresa o asociado",
+    tex_rtn TINYTEXT NOT NULL COMMENT "Registro Tributario Nacional Numérico",
+    tex_bankAccount TINYTEXT NOT NULL COMMENT "Cuenta bancaria",
+
+    FOREIGN KEY (id_user_fk) REFERENCES User(id)
+) COMMENT = "Clientes empresariales, estos mantienen cuentan bancarias";
 
 
 --
@@ -93,6 +102,25 @@ CREATE TABLE Address(
 
     FOREIGN KEY (id_client_fk) REFERENCES Client(id)
 ) COMMENT "Dirección donde se harán los envíos de los productos";
+
+CREATE TABLE AddressClient(
+    id SERIAL PRIMARY KEY, 
+    id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Client",
+    id_address_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Address",
+
+    FOREIGN KEY (id_client_fk) REFERENCES Client(id),
+    FOREIGN KEY (id_address_fk) REFERENCES Address(id)
+)COMMENT = "Relación muchos a muchos con clientes";
+
+
+CREATE TABLE AddressBusiness(
+    id SERIAL PRIMARY KEY, 
+    id_business_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Business"
+    id_address_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Address",
+
+    FOREIGN KEY (id_client_fk) REFERENCES Client(id),
+    FOREIGN KEY (id_address_fk) REFERENCES Business(id)
+)COMMENT = "Relación muchos a muchos con clientes de tipo Empresa";
 
 --
 --  Empleados
@@ -419,19 +447,37 @@ CREATE TABLE InvoiceDetail(
 
 
 --
---  Pedidos Cliente | Pedidos a Proveedores
+--  Orden | Orden de clientes, orden de empresa y orden al proveedor
 --
 
-CREATE TABLE CustomerOrder (
+CREATE TABLE GeneralOrder(
     id SERIAL PRIMARY KEY, 
-    id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Empleado",
+    -- id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Empleado",
     id_invoice_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Factura",
     tex_number_order TINYTEXT NOT NULL COMMENT "Número de orden", 
     tim_delivery_date TIMESTAMP NOT NULL COMMENT "Orden de entrega del producto",
 
     FOREIGN KEY (id_invoice_fk) REFERENCES Invoice(id),
     FOREIGN KEY (id_client_fk) REFERENCES Client(id)
-) COMMENT "Pedidos que realiza el cliente";
+)COMMENT = "Pedidos que realizan los distintos tipos de clientes (empresarial, cliente)";
+
+CREATE TABLE CustomerOrder (
+    id SERIAL PRIMARY KEY, 
+    id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Cliente",
+    id_generalOrder_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad General order",
+
+    FOREIGN KEY (id_client_fk) REFERENCES Client(id),
+    FOREIGN KEY (id_generalOrder_fk) REFERENCES GeneralOrder(id)
+) COMMENT ="Relación muchos a muchos entre las entidades Customer y Order";
+
+CREATE TABLE BusinessOrder (
+    id SERIAL PRIMARY KEY, 
+    id_business_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Cliente",
+    id_generalOrder_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad General order",
+
+    FOREIGN KEY (id_business_fk) REFERENCES Business(id),
+    FOREIGN KEY (id_generalOrder_fk) REFERENCES GeneralOrder(id)
+) COMMENT ="Relación muchos a muchos entre las entidades Business y Order";
 
 
 CREATE TABLE SupplierOrder(
