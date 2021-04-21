@@ -55,10 +55,12 @@ CREATE TABLE Country(
 CREATE TABLE Business(
     id SERIAL PRIMARY KEY, 
     id_user_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad User",
+    id_country_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad País",
     tex_name TINYTEXT NOT NULL COMMENT "Nombre de la empresa o asociado",
     tex_rtn TINYTEXT NOT NULL COMMENT "Registro Tributario Nacional Numérico",
     tex_bankAccount TINYTEXT NOT NULL COMMENT "Cuenta bancaria",
-
+    
+    FOREIGN KEY (id_country_fk) REFERENCES Country(id),
     FOREIGN KEY (id_user_fk) REFERENCES User(id)
 ) COMMENT = "Clientes empresariales, estos mantienen cuentan bancarias";
 
@@ -73,6 +75,7 @@ CREATE TABLE Client(
     id_country_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad País",
     bit_type BIT(1) DEFAULT 0 NOT NULL COMMENT "Cliente poco frecuente: 0 | Cliente por contrato: 1 ",
 
+    FOREIGN KEY (id_country_fk) REFERENCES Country(id),
     FOREIGN KEY (id_person_fk) REFERENCES Person(id)
 ) COMMENT "Entidad Cliente";
 
@@ -81,8 +84,8 @@ CREATE TABLE CreditCard(
     id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad Cliente | Un cliente puede tener varias tarjetas",
     tex_number VARCHAR(25) NOT NULL UNIQUE COMMENT "Número de la tarjeta de credito"
      CHECK( tex_number RLIKE "[0-9 ]+" ), 
-    tex_name TINYTEXT NOT NULL COMMENT "Nombre asociado a la tarjeta"
-     CHECK( tex_name RLIKE "([a-zA-Z ]+\.?)+" ),
+    -- tex_name TINYTEXT NOT NULL COMMENT "Nombre asociado a la tarjeta"
+    -- CHECK( tex_name RLIKE "([a-zA-Z ]+\.?)+" ),
     tim_expiration_date TIMESTAMP NOT NULL COMMENT "Fecha de vencimiento",
     tex_code TINYTEXT NOT NULL COMMENT "Número de la tarjeta de credito"
      CHECK( tex_number RLIKE "[0-9]{3,5}" ), 
@@ -93,14 +96,14 @@ CREATE TABLE CreditCard(
 
 CREATE TABLE Address(
     id SERIAL PRIMARY KEY, 
-    id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad Cliente | Un cliente puede tener varias direcciones",
+    -- id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad Cliente | Un cliente puede tener varias direcciones",
     tex_street_address TINYTEXT NOT NULL COMMENT "Dirección de la calle donde reside",
     tex_number_street TINYTEXT NOT NULL COMMENT "Número de la calle/bloque/zona",
     tex_zip TINYTEXT NOT NULL COMMENT "Código postal",
     tex_city TINYTEXT NOT NULL COMMENT "Ciudad",
-    tex_state TINYTEXT NOT NULL COMMENT "Departamento",
+    tex_state TINYTEXT NOT NULL COMMENT "Departamento"
 
-    FOREIGN KEY (id_client_fk) REFERENCES Client(id)
+    -- FOREIGN KEY (id_client_fk) REFERENCES Client(id)
 ) COMMENT "Dirección donde se harán los envíos de los productos";
 
 CREATE TABLE AddressClient(
