@@ -115,10 +115,10 @@ CREATE TABLE AddressClient(
 
 CREATE TABLE AddressBusiness(
     id SERIAL PRIMARY KEY, 
-    id_business_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Business"
+    id_business_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Business",
     id_address_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Address",
 
-    FOREIGN KEY (id_client_fk) REFERENCES Client(id),
+    FOREIGN KEY (id_business_fk) REFERENCES Client(id),
     FOREIGN KEY (id_address_fk) REFERENCES Business(id)
 )COMMENT = "Relación muchos a muchos con clientes de tipo Empresa";
 
@@ -457,8 +457,8 @@ CREATE TABLE GeneralOrder(
     tex_number_order TINYTEXT NOT NULL COMMENT "Número de orden", 
     tim_delivery_date TIMESTAMP NOT NULL COMMENT "Orden de entrega del producto",
 
-    FOREIGN KEY (id_invoice_fk) REFERENCES Invoice(id),
-    FOREIGN KEY (id_client_fk) REFERENCES Client(id)
+    FOREIGN KEY (id_invoice_fk) REFERENCES Invoice(id)
+    -- FOREIGN KEY (id_client_fk) REFERENCES Client(id)
 )COMMENT = "Pedidos que realizan los distintos tipos de clientes (empresarial, cliente)";
 
 CREATE TABLE CustomerOrder (
