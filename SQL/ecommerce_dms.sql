@@ -8,7 +8,7 @@ USE Ecommerce;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
-TRUNCATE TABLE Login;
+-- TRUNCATE TABLE Login;
 
 TRUNCATE TABLE Person;
 TRUNCATE TABLE User;
@@ -24,7 +24,12 @@ TRUNCATE TABLE InvoiceDetail;
 -- Employee
 TRUNCATE TABLE Employee;
 TRUNCATE TABLE EmployeeStore;
+
+-- Orden de compra
 TRUNCATE TABLE CustomerOrder;
+TRUNCATE TABLE GeneralOrder;
+TRUNCATE TABLE BusinessOrder;
+
 TRUNCATE TABLE Store;
 TRUNCATE TABLE Supplier;
 TRUNCATE TABLE SupplierOrder;
@@ -59,7 +64,15 @@ TRUNCATE TABLE Manufacturer;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+INSERT INTO User(tex_email, tex_password, cod_rol) VALUES
+    ('admin@admin.com', 'admin', 4)
+;
 
+INSERT INTO Person(id_user_fk, tex_dni, tex_first_name, tex_last_name, cod_gender, tim_birthday) VALUES 
+    (1, "0801199905796", "admin", "admin", 3, '1987-01-25')
+;
+
+/*
 
 INSERT INTO Person(tex_dni, tex_first_name, tex_last_name, bit_gender, tim_birthday, tex_email) VALUES 
  -- Empleados
@@ -1336,6 +1349,7 @@ INSERT INTO Client(id_person_fk, id_country_fk, bit_type) VALUES
     (350, 127, 0)
 ;
 
+
 INSERT INTO CreditCard(id_client_fk, tex_number, tex_name, tim_expiration_date, tex_code) VALUES
 (166 ,'67617536941231695', 'gsare0', '1979/11/22', '3725'),
 (294 ,'343034476939447', 'gwindle1', '1983/11/09', '8761'),
@@ -1851,6 +1865,7 @@ INSERT INTO EmployeeStore(id_employee_fk, id_store_fk) VALUES
     (49, 10),
     (50, 4)
 ;
+*/
 
 INSERT INTO  Category(tex_category) VALUES 
     ("audio"),        -- 1
