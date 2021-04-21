@@ -7,17 +7,17 @@
         <div class="form-row">
         <div class="col form-group">
           <label>Primer Nombre</label>
-            <input type="text" class="form-control" placeholder="" name="fname">
+            <input type="text" class="form-control" required="required" placeholder="" name="fname">
         </div> <!-- form-group end.// -->
         <div class="col form-group">
           <label>Primer Apellido</label>
-            <input type="text" class="form-control" placeholder="" name="lname">
+            <input type="text" class="form-control" required="required" placeholder="" name="lname">
         </div> <!-- form-group end.// -->
       </div> <!-- form-row end.// -->
 
       <div class="form-group">
         <label>Correo</label>
-        <input type="email" class="form-control" placeholder="" name="email">
+        <input type="email" class="form-control" required="required" placeholder="" name="email">
         <small class="form-text text-muted">No compartiremos tu información con terceros</small>
       </div> <!-- form-group end.// -->
 
@@ -37,7 +37,7 @@
 
         <div class="form-group col-md-6">
           <label>País</label>
-          <select id="inputState" class="form-control">
+          <select id="inputState" class="form-control" required="required" name="fCountry" >
             <option> Elige una opción ...</option>
               <option value="Afghanistan">Afghanistan</option>
               <option value="Åland Islands">Åland Islands</option>
@@ -288,7 +288,7 @@
         
         <div class="form-group col-md-6">
           <label>Ciudad</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" required="required" name = "fCity">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row.// -->
@@ -297,12 +297,12 @@
 
         <div class="col form-group">
           <label>Calle</label>
-            <input type="text" class="form-control" placeholder="" name="fcalle">
+            <input type="text" class="form-control" required="required" placeholder="" name="fcalle">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Número de Calle</label>
-            <input type="text" class="form-control" placeholder="" name="fNumeroCalle">
+            <input type="text" class="form-control" required="required" placeholder="" name="fNumeroCalle">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -311,36 +311,36 @@
 
         <div class="col form-group">
           <label>Departamento/Estado</label>
-            <input type="text" class="form-control" placeholder="" name="fEstado">
+            <input type="text" class="form-control" required="required" placeholder="" name="fEstado">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Código Postal</label>
-            <input type="text" class="form-control" placeholder="" name="fZip">
+            <input type="text" class="form-control" required="required" placeholder="" name="fZip">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
 
       <div class="form-group">
         <label>Número de Identidad</label>
-        <input type="text" class="form-control" placeholder="" name="idNumber">
+        <input type="text" class="form-control" required="required" placeholder="" name="idNumber">
       </div> <!-- form-group end.// -->
 
       <div class="form-group">
         <label>Tarjeta de Crédito</label>
-        <input type="text" class="form-control" placeholder="" name="creditCard">
+        <input type="text" class="form-control" required="required" placeholder="" name="creditCard">
       </div> <!-- form-group end.// -->
 
       <div class="form-row">
 
         <div class="col form-group">
           <label>CSV</label>
-            <input type="text" class="form-control" placeholder="" name="fCSV">
+            <input type="text" class="form-control" required="required" placeholder="" name="fCSV">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Fecha de Caducidad</label>
-            <input type="month" min="2020-05" value="2025-05" class="form-control" placeholder="" name="fCaducidad">
+            <input type="month" min="2020-05" value="2025-05" class="form-control" required="required" placeholder="" name="fCaducidad">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -349,12 +349,12 @@
 
         <div class="col form-group">
           <label>Teléfono</label>
-            <input type="text" class="form-control" placeholder="" name="fPhoneNumber">
+            <input type="text" class="form-control" required="required" placeholder="" name="fPhoneNumber">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Fecha de Nacimiento</label>
-            <input type="date" class="form-control" placeholder="" name="fBirthDate">
+            <input type="date" class="form-control" required="required" placeholder="" name="fBirthDate">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -363,12 +363,12 @@
 
         <div class="form-group col-md-6">
           <label>Crear Contraseña</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" required="required" type="password" name="password">
         </div> <!-- form-group end.// --> 
 
         <div class="form-group col-md-6">
           <label>Repetir Contraseña</label>
-            <input class="form-control" type="password" name="rPassword">
+            <input class="form-control" required="required" type="password" name="rPassword">
         </div> <!-- form-group end.// -->  
       </div>
 
@@ -385,12 +385,12 @@
 
       <div class="form-group">
         <label>Nombre de la Empresa</label>
-        <input type="text" class="form-control" placeholder="" name="fNombreEmpresa">
+        <input type="text" class="form-control" required="required" placeholder="" name="fNombreEmpresa">
       </div> <!-- form-group end.// -->
 
       <div class="form-group">
         <label>Correo</label>
-        <input type="email" class="form-control" placeholder="" name="email">
+        <input type="email" class="form-control" required="required" placeholder="" name="email">
         <small class="form-text text-muted">No compartiremos tu información con terceros</small>
       </div> <!-- form-group end.// -->
 
@@ -399,7 +399,7 @@
 
         <div class="form-group col-md-6">
           <label>País</label>
-          <select id="inputState" class="form-control">
+          <select id="inputState" class="form-control" required="required" name="fCountry" >
             <option> Elige una opción ...</option>
               <option value="Afghanistan">Afghanistan</option>
               <option value="Åland Islands">Åland Islands</option>
@@ -650,7 +650,7 @@
         
         <div class="form-group col-md-6">
           <label>Ciudad</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" required="required" name = "fCity">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row.// -->
@@ -659,12 +659,12 @@
 
         <div class="col form-group">
           <label>Calle</label>
-            <input type="text" class="form-control" placeholder="" name="fcalle">
+            <input type="text" class="form-control" required="required" placeholder="" name="fcalle">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Número de Calle</label>
-            <input type="text" class="form-control" placeholder="" name="fNumeroCalle">
+            <input type="text" class="form-control" required="required" placeholder="" name="fNumeroCalle">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -673,41 +673,41 @@
 
         <div class="col form-group">
           <label>Departamento/Estado</label>
-            <input type="text" class="form-control" placeholder="" name="fEstado">
+            <input type="text" class="form-control" required="required" placeholder="" name="fEstado">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Código Postal</label>
-            <input type="text" class="form-control" placeholder="" name="fZip">
+            <input type="text" class="form-control" required="required" placeholder="" name="fZip">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
 
       <div class="form-group">
         <label>RTN</label>
-        <input type="text" class="form-control" placeholder="" name="RTNnumber">
+        <input type="text" class="form-control" required="required" placeholder="" name="RTNnumber">
       </div> <!-- form-group end.// -->
 
       <div class="form-group">
         <label>Cuenta Bancaria</label>
-        <input type="text" class="form-control" placeholder="" name="fAccount">
+        <input type="text" class="form-control" required="required" placeholder="" name="fAccount">
       </div> <!-- form-group end.// -->
 
       <div class="form-group">
         <label>Teléfono</label>
-        <input type="text" class="form-control" placeholder="" name="fTelefono">
+        <input type="text" class="form-control" required="required" placeholder="" name="fTelefono">
       </div> <!-- form-group end.// -->
 
       <div class="form-row">
 
         <div class="form-group col-md-6">
           <label>Crear Contraseña</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" required="required" type="password" name="password">
         </div> <!-- form-group end.// --> 
 
         <div class="form-group col-md-6">
           <label>Repetir Contraseña</label>
-            <input class="form-control" type="password" name="rPassword">
+            <input class="form-control" required="required" type="password" name="rPassword">
         </div> <!-- form-group end.// -->  
       </div>
 
@@ -743,22 +743,35 @@
       </label>
     </div> <!-- form-group end.// -->
 
+    {% block content %}
+      <div class="container">
+        {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+          </div>
+        {% endfor %}
+
+      {% block page_content %}{% endblock %}
+      </div>
+    {% endblock %}
+
     <form id= "formularioDeRegistro" method="POST"> <!-- Formulario de Registro -->
 
       <div class="form-row">
         <div class="col form-group">
           <label>Primer Nombre</label>
-            <input type="text" class="form-control" placeholder="" name="fname">
+            <input type="text" class="form-control" required="required" placeholder="" name="fname">
         </div> <!-- form-group end.// -->
         <div class="col form-group">
           <label>Primer Apellido</label>
-            <input type="text" class="form-control" placeholder="" name="lname">
+            <input type="text" class="form-control" required="required" placeholder="" name="lname">
         </div> <!-- form-group end.// -->
       </div> <!-- form-row end.// -->
 
       <div class="form-group">
         <label>Correo</label>
-        <input type="email" class="form-control" placeholder="" name="email">
+        <input type="email" class="form-control" required="required" placeholder="" name="email">
         <small class="form-text text-muted">No compartiremos tu información con terceros</small>
       </div> <!-- form-group end.// -->
 
@@ -778,7 +791,7 @@
 
         <div class="form-group col-md-6">
           <label>País</label>
-          <select id="inputState" class="form-control">
+          <select id="inputState" class="form-control" required="required" name="fCountry" >
             <option> Elige una opción ...</option>
               <option value="Afghanistan">Afghanistan</option>
               <option value="Åland Islands">Åland Islands</option>
@@ -1029,7 +1042,7 @@
         
         <div class="form-group col-md-6">
           <label>Ciudad</label>
-          <input type="text" class="form-control">
+          <input type="text" class="form-control" required="required" name = "fCity">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row.// -->
@@ -1038,12 +1051,12 @@
 
         <div class="col form-group">
           <label>Calle</label>
-            <input type="text" class="form-control" placeholder="" name="fcalle">
+            <input type="text" class="form-control" required="required" placeholder="" name="fcalle">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Número de Calle</label>
-            <input type="text" class="form-control" placeholder="" name="fNumeroCalle">
+            <input type="text" class="form-control" required="required" placeholder="" name="fNumeroCalle">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -1052,36 +1065,36 @@
 
         <div class="col form-group">
           <label>Departamento/Estado</label>
-            <input type="text" class="form-control" placeholder="" name="fEstado">
+            <input type="text" class="form-control" required="required" placeholder="" name="fEstado">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Código Postal</label>
-            <input type="text" class="form-control" placeholder="" name="fZip">
+            <input type="text" class="form-control" required="required" placeholder="" name="fZip">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
 
       <div class="form-group">
         <label>Número de Identidad</label>
-        <input type="text" class="form-control" placeholder="" name="idNumber">
+        <input type="text" class="form-control" required="required" placeholder="" name="idNumber">
       </div> <!-- form-group end.// -->
 
       <div class="form-group">
         <label>Tarjeta de Crédito</label>
-        <input type="text" class="form-control" placeholder="" name="creditCard">
+        <input type="text" class="form-control" required="required" placeholder="" name="creditCard">
       </div> <!-- form-group end.// -->
 
       <div class="form-row">
 
         <div class="col form-group">
           <label>CSV</label>
-            <input type="text" class="form-control" placeholder="" name="fCSV">
+            <input type="text" class="form-control" required="required" placeholder="" name="fCSV">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Fecha de Caducidad</label>
-            <input type="month" min="2020-05" value="2025-05" class="form-control" placeholder="" name="fCaducidad">
+            <input type="month" min="2020-05" value="2025-05" class="form-control" required="required" placeholder="" name="fCaducidad">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -1090,12 +1103,12 @@
 
         <div class="col form-group">
           <label>Teléfono</label>
-            <input type="text" class="form-control" placeholder="" name="fPhoneNumber">
+            <input type="text" class="form-control" required="required" placeholder="" name="fPhoneNumber">
         </div> <!-- form-group end.// -->
 
         <div class="col form-group">
           <label>Fecha de Nacimiento</label>
-            <input type="date" class="form-control" placeholder="" name="fBirthDate">
+            <input type="date" class="form-control" required="required" placeholder="" name="fBirthDate">
         </div> <!-- form-group end.// -->
 
       </div> <!-- form-row end.// -->
@@ -1104,12 +1117,12 @@
 
         <div class="form-group col-md-6">
           <label>Crear Contraseña</label>
-            <input class="form-control" type="password" name="password">
+            <input class="form-control" required="required" type="password" name="password">
         </div> <!-- form-group end.// --> 
 
         <div class="form-group col-md-6">
           <label>Repetir Contraseña</label>
-            <input class="form-control" type="password" name="rPassword">
+            <input class="form-control" required="required" type="password" name="rPassword">
         </div> <!-- form-group end.// -->  
       </div>
 
