@@ -19,7 +19,7 @@ CREATE TABLE User(
     id SERIAL PRIMARY KEY, 
     -- id_person_fk BIGINT UNSIGNED NOT NULL UNIQUE, 
     tex_email VARCHAR(40) NOT NULL UNIQUE COMMENT "Email con el que entra el sistema"
-    CHECK( tex_email RLIKE "[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]+)+"), 
+    , --  CHECK( tex_email RLIKE "[a-zA-Z0-9._-]+@[a-zA-Z0-9-]+(\.[a-zA-Z]+)+"), 
     tex_password TINYTEXT NOT NULL COMMENT "Contraseña",
     cod_rol ENUM("cliente", "empresa", "empleado", "administrador") DEFAULT "cliente" COMMENT "Roles del usuario en el sistema"
 
@@ -29,13 +29,13 @@ CREATE TABLE Person(
     id SERIAL PRIMARY KEY, 
     id_user_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad User",
     tex_dni TINYTEXT NOT NULL COMMENT "Identificación de usuario asignada por parte de una nación"
-    CHECK( tex_dni RLIKE "[0-9- ]+" ),
+    , --  CHECK( tex_dni RLIKE "[0-9- ]+" ),
     tex_first_name TINYTEXT NOT NULL COMMENT "Primer nombre de la persona"
-    CHECK( tex_first_name RLIKE "[a-zA-Z ]+" ),
+    , --  CHECK( tex_first_name RLIKE "[a-zA-Z ]+" ),
     tex_last_name TINYTEXT NOT NULL COMMENT "Apellido de la persona"
-    CHECK( tex_first_name RLIKE "[a-zA-Z ]+" ),
+    , --  CHECK( tex_first_name RLIKE "[a-zA-Z ]+" ),
     cod_gender ENUM("female", "male", "other") NOT NULL DEFAULT "female" COMMENT "Género de la persona",
-    tim_birthday TIMESTAMP NOT NULL COMMENT "Fecha de nacimiento",
+    tim_birthday DATE NOT NULL COMMENT "Fecha de nacimiento",
     
     FOREIGN KEY (id_user_fk) REFERENCES User(id)
 ) COMMENT "Entidad que contiene los atriutos básicos, información necesaria para una persona";
@@ -83,12 +83,12 @@ CREATE TABLE CreditCard(
     id SERIAL PRIMARY KEY, 
     id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad Cliente | Un cliente puede tener varias tarjetas",
     tex_number VARCHAR(25) NOT NULL UNIQUE COMMENT "Número de la tarjeta de credito"
-     CHECK( tex_number RLIKE "[0-9 ]+" ), 
+     , --  CHECK( tex_number RLIKE "[0-9 ]+" ), 
     -- tex_name TINYTEXT NOT NULL COMMENT "Nombre asociado a la tarjeta"
-    -- CHECK( tex_name RLIKE "([a-zA-Z ]+\.?)+" ),
+    -- , --  CHECK( tex_name RLIKE "([a-zA-Z ]+\.?)+" ),
     tim_expiration_date TIMESTAMP NOT NULL COMMENT "Fecha de vencimiento",
     tex_code TINYTEXT NOT NULL COMMENT "Número de la tarjeta de credito"
-     CHECK( tex_number RLIKE "[0-9]{3,5}" ), 
+     , --  CHECK( tex_number RLIKE "[0-9]{3,5}" ), 
 
 
     FOREIGN KEY (id_client_fk) REFERENCES Client(id)
@@ -121,8 +121,8 @@ CREATE TABLE AddressBusiness(
     id_business_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Business",
     id_address_fk BIGINT UNSIGNED NOT NULL COMMENT "Referencia hacia la entidad Address",
 
-    FOREIGN KEY (id_business_fk) REFERENCES Client(id),
-    FOREIGN KEY (id_address_fk) REFERENCES Business(id)
+    FOREIGN KEY (id_business_fk) REFERENCES Business(id),
+    FOREIGN KEY (id_address_fk) REFERENCES Address(id)
 )COMMENT = "Relación muchos a muchos con clientes de tipo Empresa";
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE Cellphone(
     id SERIAL PRIMARY KEY, 
     id_person_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea que relaciona esta entidad con la entidad Proveedor",
     tex_cellphone_number TINYTEXT NOT NULL COMMENT "Número de télefono"
-     CHECK( tex_cellphone_number RLIKE "([0-9]+((\-)|(\/)|([ ])))+" ),
+     , --  CHECK( tex_cellphone_number RLIKE "([0-9]+((\-)|(\/)|([ ])))+" ),
 
     FOREIGN KEY (id_person_fk) REFERENCES Person(id)
 ) COMMENT "Número de teléfono";
@@ -174,11 +174,11 @@ CREATE TABLE Supplier(
     id_employee_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Empleado | Empleado que atenderá al proveedor",
     tex_name_business TINYTEXT NOT NULL COMMENT "Nombre de la empresa que representa",
     tex_cellphone_business TINYTEXT NOT NULL COMMENT "Número de teléfono de la empresa"
-     CHECK( tex_cellphone_manager RLIKE "([0-9]+((\-)|(\/)|([ ])))+" ),
+     , --  CHECK( tex_cellphone_manager RLIKE "([0-9]+((\-)|(\/)|([ ])))+" ),
     tex_address_business TINYTEXT NOT NULL COMMENT "Dirección de la empresa",
     tex_name_manager TINYTEXT NOT NULL COMMENT "nombre del encargado o representante de la empresa",
     tex_cellphone_manager TINYTEXT NOT NULL COMMENT "Número de teléfono del encargado o representante de la empresa"
-     CHECK( tex_cellphone_manager RLIKE "([0-9]+((\-)|(\/)|([ ])))+" ),
+     , --  CHECK( tex_cellphone_manager RLIKE "([0-9]+((\-)|(\/)|([ ])))+" ),
  
     FOREIGN KEY (id_employee_fk) REFERENCES Employee(id)
 ) COMMENT "Proveedores"; 

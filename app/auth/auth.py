@@ -11,110 +11,103 @@ def main():
 		form = LoginForm()
 		email = request.form['email']
 		password = request.form['password']
-		print(email)
-		print(password)
-		
-		session['email'] = email
-		return redirect(url_for("general_bp.home"))
+
+		con = dbConnectionService()
+
+		user = con.query(""" 
+			SELECT 
+				CASE 
+					WHEN tex_email = '%s' &&  tex_password = '%s' THEN 1
+					ELSE 0
+				END
+			FROM 
+				User
+			;
+			""" % (email,password)
+		)
+
+		print(user[0][0])
+		if user[0][0] == 1:
+			session['email'] = email
+			return redirect(url_for("general_bp.home"))
+		else:
+			flash('El Usuario o Contraseña son Incorrectos!')
+			return redirect("/auth/login")
+
 	return render_template("login.html", title="Login")
+
+@auth_bp.route("/logout")
+def logout():
+	session.clear()
+	return redirect("/")
 
 @auth_bp.route("/register", methods=["GET","POST"])
 def signup():
 	if request.method == "POST":
 		form = LoginForm()
-		try:
 
-			fname = request.form['fname'].trim()
-			lname = request.form['lname'].trim()
-			email = request.form['email'].trim()
-			gender = request.form['gender'].trim()
-			country = request.form['fCountry'].trim()
-			city = request.form['fCity'].trim()
-			street = request.form['fcalle'].trim()
-			streetNumber = request.form['fNumeroCalle'].trim()
-			state = request.form['fEstado'].trim()
-			zipCode = request.form['fZip'].trim()
-			idNumber = request.form['idNumber'].trim()
-			creditCardNumber = request.form['creditCard'].trim()
-			CSV = request.form['fCVC'].trim()
-			expireDate = request.form['fCaducidad'].trim()
-			phone = request.form['fPhoneNumber'].trim()
-			birthDate = request.form['fBirthDate'].trim()
-			password = request.form['password'].trim()
-			rPassword = request.form['rPassword'].trim()
+		try:
+			fname = request.form['fname']
+			lname = request.form['lname']
+			email = request.form['email']
+			gender = str(request.form['gender']).lower()
+			country = request.form['fCountry']
+			city = request.form['fCity']
+			street = request.form['fcalle']
+			streetNumber = request.form['fNumeroCalle']
+			state = request.form['fEstado']
+			zipCode = request.form['fZip']
+			idNumber = request.form['idNumber']
+			creditCardNumber = request.form['creditCard']
+			CSV = request.form['fCVC']
+			expireDate = str(request.form['fCaducidad'])+"-01"
+			phone = request.form['fPhoneNumber']
+			birthDate = request.form['fBirthDate']
+			password = request.form['password']
+			rPassword = request.form['rPassword']
 
 			if password == rPassword:
 
-							con = dbConnectionService()
-				con.connect()
+				con = dbConnectionService()
 
-				con.DMSQuery(
-					"""
-						INSERT INTO User(tex_email, tex_password, cod_rol) VALUES
-						(%s, %s, 1); 
+				con.DMSQuery("INSERT INTO User(tex_email, tex_password, cod_rol) VALUES('%s','%s', 1);"  % (email,password))
 
-						INSERT INTO Person(id_user_fk, tex_dni, tex_first_name, tex_last_name, cod_gender, tim_birthday) VALUES
+				con.DMSQuery("""
+					INSERT INTO Person(id_user_fk, tex_dni, tex_first_name, tex_last_name, cod_gender, tim_birthday) VALUES
 							(
 								fn_getLastUserCreated(),
-								%s,
-								%s,
-								%s,
-								%s,
-								%s
+								'%s',
+								'%s',
+								'%s',
+								'%s',
+								'%s'
 							)
-						;
+						;""" % (idNumber,fname,lname,gender,birthDate))
 
-						INSERT INTO Client(id_person_fk, id_country_fk) VALUES
-							(
-								fn_getLastPersonCreated(),
-								fn_getCountry(%s)
-							)
-						;
+				con.DMSQuery("INSERT INTO Client(id_person_fk, id_country_fk) VALUES(fn_getLastPersonCreated(),fn_getCountry('%s'));" % country )
 
-						INSERT INTO CreditCard(id_client_fk, tex_number, tim_expiration_date, tex_code) VALUES
-							(
-								fn_getLastClientCreated(),
-								%s,
-								%s,
-								%s
-							)
-						;
+				con.DMSQuery("""
+										INSERT INTO CreditCard(id_client_fk, tex_number, tim_expiration_date, tex_code) VALUES
+											(
+												fn_getLastClientCreated(),
+												'%s',
+												'%s',
+												'%s'
+											)
+										;""" % (creditCardNumber,expireDate,CSV))
 
-
-						INSERT INTO Address(tex_street_address, tex_number_street, tex_zip, tex_city, tex_state) VALUES 
-							( 
-								%s,
-								%s,
-								%s,
-								%s,
-								%s
-							)
-						;
-						INSERT INTO AddressClient(id_client_fk, id_address_fk) VALUES
-							(
-								fn_getLastClientCreated(),
-								fn_getLastAddressCreated()
-							)
-						;
-					""" % (
-						email,
-						password,
-						idNumber,
-						fname,
-						lname,
-						gender,
-						birthDate,
-						country,
-						creditCardNumber,
-						expireDate,
-						CSV,
-						street,
-						streetNumber,
-						zipCode,
-						city,
-						state
-					)
-				)
+				con.DMSQuery("""
+										INSERT INTO Address(tex_street_address, tex_number_street, tex_zip, tex_city, tex_state) VALUES 
+											( 
+												'%s',
+												'%s',
+												'%s',
+												'%s',
+												'%s'
+											)
+										;""" % (street,streetNumber,zipCode,city,state))
+				
+				con.DMSQuery("INSERT INTO AddressClient(id_client_fk, id_address_fk) VALUES(fn_getLastClientCreated(),fn_getLastAddressCreated());")
 
 				return redirect(url_for("auth_bp.main"))
 			else:
@@ -123,23 +116,65 @@ def signup():
 
 		except:
 
-			session['userType'] = 1 # El tipo de Usuario es un Asociado
-
-			bussinessName = request.form['fNombreEmpresa'].trim()
-			email = request.form['email'].trim()
-			country = request.form['fCountry'].trim()
-			city = request.form['fCity'].trim()
-			street = request.form['fcalle'].trim()
-			streetNumber = request.form['fNumeroCalle'].trim()
-			state = request.form['fEstado'].trim()
-			zipCode = request.form['fZip'].trim()
-			RTNnumber = request.form['RTNnumber'].trim()
-			accountNumber = request.form['fAccount'].trim()
-			phone = request.form['fTelefono'].trim()
-			password = request.form['password'].trim()
-			rPassword = request.form['rPassword'].trim()
+			bussinessName = request.form['fNombreEmpresa']
+			email = request.form['email']
+			country = request.form['fCountry']
+			city = request.form['fCity']
+			street = request.form['fcalle']
+			streetNumber = request.form['fNumeroCalle']
+			state = request.form['fEstado']
+			zipCode = request.form['fZip']
+			RTNnumber = request.form['RTNnumber']
+			accountNumber = request.form['fAccount']
+			phone = request.form['fTelefono']
+			password = request.form['password']
+			rPassword = request.form['rPassword']
 		
 			if password == rPassword:
+
+				con = dbConnectionService()
+
+				#con.DMSQuery("INSERT INTO User(tex_email, tex_password, cod_rol) VALUES('%s', '%s', 2)  ; "%(email,password))
+
+				con.DMSQuery("""
+        			INSERT INTO Business(id_user_fk, id_country_fk, tex_name, tex_rtn, tex_bankAccount) VALUES
+					(
+						fn_getLastUserCreated(),
+						fn_getCountry('%s'),
+						'%s',
+						'%s',
+						'%s' 
+					)
+				; 
+				"""%(country,bussinessName,RTNnumber,accountNumber))
+
+
+				con.DMSQuery(  
+					"""
+						INSERT INTO Address(tex_street_address, tex_number_street, tex_zip, tex_city, tex_state) VALUES 
+							(
+								'%s',
+								'%s',
+								'%s',
+								'%s',
+								'%s'
+							)
+						;
+					"""%(street,streetNumber,zipCode,city,state)
+				)
+
+
+				con.DMSQuery(  
+					"""
+						INSERT INTO AddressBusiness(id_business_fk, id_address_fk) VALUES
+							(
+								fn_getLastBusinessCreated(), 
+								fn_getLastAddressCreated()   
+							)
+						;
+					"""
+				)
+
 				return redirect(url_for("auth_bp.main"))
 			else:
 				flash('Las contraseñas no coinciden!')

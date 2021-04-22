@@ -9,10 +9,8 @@ general_bp = Blueprint("general_bp", __name__ , template_folder="templates/gener
 @general_bp.route("/")
 def home():
 
-    
     # Crear la sesión (si no existe) que cuente la cantidad de productos en el carrito de compras y que almacene la lista con los productos y cantidades
 
-    #session.clear()
     if session.get('cartCounter') is None or session.get('shoppingCart') is None:
         session['cartCounter'] = 0
         session['shoppingCart'] = []
