@@ -1,6 +1,6 @@
 /*
     @author kenneth.cruz@unah.hn
-    @version 0.2.1
+    @version 0.2.3
     @date 20/03/2021
 */
 
@@ -416,8 +416,8 @@ CREATE TABLE Inventory(
     id_product_fk BIGINT UNSIGNED NOT NULL,
     med_quantity MEDIUMINT UNSIGNED NOT NULL COMMENT "Cantidad disponible del producto",
     tim_date TIMESTAMP DEFAULT NOW() ON UPDATE NOW() COMMENT "última actualización del estado de la cantidad del producto",
-    dec_sale_price DECIMAL NOT NULL COMMENT "Precio de venta de del producto",
-    dec_purchase_price DECIMAL NOT NULL COMMENT "Precio de compra de del producto",
+    dec_sale_price DECIMAL(10, 2) UNSIGNED NOT NULL COMMENT "Precio de venta del producto",
+    dec_purchase_price DECIMAL(15, 2) NOT NULL COMMENT "Precio de compra del producto",
 
     FOREIGN KEY (id_product_fk) REFERENCES Product(id)
 ) COMMENT "Entidad Inventario, número de productos dentro de la tienda";
@@ -425,7 +425,9 @@ CREATE TABLE Inventory(
 
 CREATE TABLE Invoice(
     id SERIAL PRIMARY KEY, 
-    id_product_fk BIGINT UNSIGNED NOT NULL,
+    -- id_product_fk BIGINT UNSIGNED NOT NULL,
+    tex_number_order TINYTEXT NOT NULL COMMENT "Número de orden o Tracking", 
+    dec_totalPaid DECIMAL(15, 2) UNSIGNED NOT NULL COMMENT "Cálculo de todas las transacciones bancarias, impuestos, suma de precio de productos",
     tim_date_issue TIMESTAMP DEFAULT NOW() COMMENT "Fecha de emisión"
     -- dec_subtotal DECIMAL UNSIGNED NOT NULL COMMENT "Subtotal suma de cada uno de los artículos según su cantidad",
     -- dec_iva DECIMAL(3,2) UNSIGNED DEFAULT 0.15 COMMENT "Impuesto",
@@ -433,20 +435,21 @@ CREATE TABLE Invoice(
     -- dec_total_paid DECIMAL UNSIGNED NOT NULL COMMENT "El total pagado por parte del cliente",
     -- dec_change DECIMAL DEFAULT 0.0 COMMENT "Cambio, vuelto"
 
-) COMMENT "Factura";
+) COMMENT = "Factura";
 
 CREATE TABLE InvoiceDetail(
     id SERIAL, 
-    id_invoice_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foranea de la entidad Factura", 
-    id_inventory_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave Foranea de la entidad Inventario", 
+    id_invoice_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea de la entidad Factura", 
+    id_inventory_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea de la entidad Inventario", 
     sma_quantity SMALLINT UNSIGNED DEFAULT 1 COMMENT "Cantidad de los productos que comprará",
+    dec_totalPrice DECIMAL(15, 2) UNSIGNED NOT NULL COMMENT "Suma del precio de cada uno de los productos",
     -- dec_total_product DECIMAL UNSIGNED COMMENT "Total por la cantidad de producto y el precio del producto",
 
     PRIMARY KEY(id, id_invoice_fk),
 
     FOREIGN KEY (id_invoice_fk) REFERENCES Invoice(id),
     FOREIGN KEY (id_inventory_fk) REFERENCES Inventory(id)
-) COMMENT "Detalles de la factura que incluye la información de la cantidad de productos a comprar";
+) COMMENT = "Detalles de la factura que incluye la información de la cantidad de productos a comprar";
 
 
 --
@@ -457,7 +460,6 @@ CREATE TABLE GeneralOrder(
     id SERIAL PRIMARY KEY, 
     -- id_client_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Empleado",
     id_invoice_fk BIGINT UNSIGNED NOT NULL COMMENT "Clave foránea que relaciona esta entidad con la entidad Factura",
-    tex_number_order TINYTEXT NOT NULL COMMENT "Número de orden", 
     tim_delivery_date TIMESTAMP NOT NULL COMMENT "Orden de entrega del producto",
 
     FOREIGN KEY (id_invoice_fk) REFERENCES Invoice(id)
