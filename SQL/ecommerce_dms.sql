@@ -314,6 +314,146 @@ INSERT INTO Country(tex_name, tex_iso ) VALUES
     ('Zimbabwe','ZW')
 ;
 
+
+
+INSERT INTO User(tex_email, tex_password, cod_rol) VALUES
+-- Client
+('mocurrine0@blogs.com', '123', 1), -- 2
+('tdaouze1@noaa.gov', '123', 1),
+('osimmens2@oracle.com', '123', 1),
+('escarce3@nytimes.com', '123', 1),
+('wwiseman4@auda.org.edu', '123', 1),
+('hkarchowski5@discovery.com', '123', 1),
+('ecoppenhall6@wordpress.com', '123', 1),
+('mgrealey7@skype.com', '123', 1),
+('awycherley8@ed.gov', '123', 1),
+('ihackleton9@google.de', '123', 1), -- 11
+
+-- Business
+('bforshaw14@dropbox.com','123', 2), -- 12
+('jstidworthy15@weebly.com','123', 2),
+('csergean16@nature.com','123', 2),
+('mweatherell17@indiegogo.com','123', 2),
+('elinsley18@printfriendly.com','123', 2),
+('nmisk19@geocities.jp','123', 2),
+('rmcmains1a@google.es','123', 2),
+('ncross1b@ucla.edu','123', 2),
+('ykingsnode1c@foxnews.com','123', 2),
+('rgaudon1d@japanpost.jp','123', 2) -- 21
+;
+
+--
+--  Client
+--
+
+INSERT INTO Person(id_user_fk, tex_dni, tex_first_name, tex_last_name, cod_gender, tim_birthday) VALUES 
+ (2 ,'657-94-9269', 'Lance', 'Roxbrough', 2, '1989-02-11'),
+ (3 ,'608-72-2038', 'Bryant', 'Cromleholme', 1, '1994-10-27'),
+ (4 ,'129-66-8969', 'Herby', 'Playhill', 1, '1980-02-09'),
+ (5 ,'171-96-4376', 'Donnell', 'Meggison', 1, '1991-03-31'),
+ (6 ,'347-40-3311', 'Cirillo', 'Cousans', 2, '1975-05-18'),
+ (7 ,'830-06-0019', 'Rudolf', 'Byrcher', 1, '2001-06-27'),
+ (8 ,'894-80-1028', 'Hieronymus', 'Wondraschek', 2, '1989-09-05'),
+ (9 ,'556-58-4765', 'Averill', 'McGilbon', 1, '1972-02-12'),
+ (10,'377-19-7245', 'Gun', 'Withinshaw', 2, '1979-10-03'),
+ (11 ,'147-90-4884', 'Farly', 'Percival', 1, '1979-10-25')
+;
+
+INSERT INTO Client(id_person_fk, id_country_fk) VALUES 
+    (1, 16),
+    (2, 16),
+    (3, 16),
+    (4, 16),
+    (5, 16),
+    (6, 16),
+    (7, 16),
+    (8, 16),
+    (9, 16),
+    (10, 16)
+;
+
+
+INSERT INTO CreditCard(id_client_fk, tex_number, tim_expiration_date, tex_code) VALUES
+    (1 ,'67617536941231695', '1979-11-22', '3725'),
+    (2 ,'343034476939447', '1983-11-09', '8761'),
+    (3 ,'5322292199136816', '1999-10-05', '4639'),
+    (4 ,'201486284951330', '1970-03-27', '8078'),
+    (5 ,'3536124360797810', '2000-11-01', '2492'),
+    (6 ,'374622941329574', '1993-07-27', '3850'),
+    (7 ,'3559664076707647', '1988-08-07', '3906'),
+    (8 ,'5100149285304690', '2002-02-06', '1715'),
+    (9 ,'56022193130865180', '1991-01-05', '6330'),
+    (10 ,'3552167428505716', '2000-12-18', '3344')
+;
+
+
+--
+--  Business
+--
+
+INSERT INTO Business(id_user_fk, id_country_fk, tex_name, tex_rtn, tex_bankAccount) VALUES
+    (12, 8, 'Caspar Bulleyn', '349-407-2001', '67617536941231695'),
+    (13, 8, 'Rolando Treweke', '684-372-1869', '343034476939447'),
+    (14, 8, 'Kissie Farmloe', '203-543-6208', '5322292199136816'),
+    (15, 8, 'Jobey Dicty', '614-165-2978', '201486284951330'),
+    (16, 8, 'Maribel Bernade', '752-551-6952', '3536124360797810'),
+    (17, 8, 'Dreddy Shirt', '222-344-9662', '374622941329574'),
+    (18, 8, 'Ilaire Van Dijk', '928-888-6810', '3559664076707647'),
+    (19, 8, 'Carolan Tremellier', '759-414-5225', '5100149285304690'),
+    (20, 8, 'Amy Gammack', '439-791-7566', '56022193130865180'),
+    (21, 8, 'Karlotte Bengoechea', '795-215-0720', '3552167428505716')
+;
+
+INSERT INTO Address(tex_street_address, tex_number_street, tex_zip, tex_city, tex_state) VALUES 
+    ('201 Butterfield Parkway', '99594', '3119', 'Tønsberg', 'Vestfold'),
+    ('25919 Butterfield Hill', '10849', '29905', 'Beaufort', 'South Carolina'),
+    ('489 Buena Vista Way', '9', '60674', 'Chicago', 'Illinois'),
+    ('3 Fair Oaks Point', '66567', '93504 CEDEX', 'Pantin', 'Île-de-France'),
+    ('58 Golf Course Hill', '46962', 'B2V', 'Catalina', 'Newfoundland and Labrador'),
+    ('1481 Goodland Junction', '0', '4605-410', 'Nogueira', 'Porto'),
+    ('23217 Shelley Drive', '2400', '45886', 'Gelsenkirchen', 'Nordrhein-Westfalen'),
+    ('311 Superior Point', '1136', '69303 CEDEX 07', 'Lyon', 'Rhône-Alpes'),
+    ('40 Lakewood Gardens Street', '922', '91010', 'Tawau', 'Sabah'),
+    ('0 Carpenter Center', '09288', '75669 CEDEX 14', 'Paris 14', 'Île-de-France'),
+    ('1 Center Junction', '0369', '7090-224', 'Viana do Alentejo', 'Évora'), 
+    ('4152 Londonderry Drive', '4377', '45933 CEDEX 9', 'Orléans', 'Centre'),
+    ('532 Westport Terrace', '5', '44307 CEDEX 3', 'Nantes', 'Pays de la Loire'),
+    ('9 Kinsman Center', '66', '2415-177', 'Ponte da Pedra', 'Leiria'),
+    ('6670 Roxbury Terrace', '11994', '54039 CEDEX', 'Nancy', 'Lorraine'),
+    ('9 Grim Junction', '1', '247 25', 'Södra Sandby', 'Skåne'),
+    ('3 6th Junction', '221', '93658', 'Kuching', 'Sarawak'),
+    ('35 Sullivan Plaza', '35168', '4690-667', 'Santo António', 'Viseu'),
+    ('88035 Mallard Place', '99799', 'K1M', 'Baie-Comeau', 'Québec'),
+    ('6 Old Shore Place', '6744', '43210', 'Columbus', 'Ohio')
+;
+
+INSERT INTO AddressClient(id_client_fk, id_address_fk) VALUES 
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+    (6, 6),
+    (7, 7),
+    (8, 8),
+    (9, 9),
+    (10, 10)
+;
+INSERT INTO AddressBusiness(id_business_fk, id_address_fk) VALUES 
+    (1, 11),
+    (2, 12),
+    (3, 13),
+    (4, 14),
+    (5, 15),
+    (6, 16),
+    (7, 17),
+    (8, 18),
+    (9, 19),
+    (10, 20)
+;
+
+
+
 /*
 INSERT INTO Person(tex_dni, tex_first_name, tex_last_name, bit_gender, tim_birthday, tex_email) VALUES 
  -- Empleados
