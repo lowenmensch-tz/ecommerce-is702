@@ -32,57 +32,67 @@
               </article><!-- card-body.// -->
           </div> <!-- card Dirección x2.// -->
 
+          <!-- 
           <div class="col-2">
             <p class="text-center mt-4"><a a href="#modalAddDirection" role="button" class="btn btn-large btn-primary" data-toggle="modal">Cambiar</a></p>
-          </div> <!-- card Cambiar direcciónx2.// -->
+          </div> 
+          -->
 
         </div> 
       </div> <!-- Contiene dos div info/cambiar-->
 
-      <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
-        <div class="row "> <!-- Contiene dos -->
-          <div class="col-10">
-              <article class="card-body">
-                <header class="mb-4"><h5 class="card-title">Tarjeta de credito</h4></header>
+      {% if userType == 1 %}
+
+          <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
+            <div class="row "> <!-- Contiene dos -->
+              <div class="col-10">
+                  <article class="card-body">
+                    <header class="mb-4"><h5 class="card-title">Tarjeta de credito</h4></header>
+                        
+                      <p id="creditCard">****-****-{{ paymentInfo }}</p>
                     
-                  <p id="creditCard"> American Express, 5555555555554444,  12/2022</p>
-                
-              </article><!-- card-body.// -->
-          </div> <!-- card Dirección x2.// -->
-          <div class="col-2">
-            <p class="text-center mt-4"><a a href="#modalAddCreditCard" role="button" class="btn btn-large btn-primary" data-toggle="modal" onclick="generateMonth()">Cambiar</a></p>
-          </div> <!-- card Cambiar direcciónx2.// -->
+                  </article><!-- card-body.// -->
+              </div> <!-- card Dirección x2.// -->
 
-        </div> 
-      </div> <!-- Contiene dos div info/cambiar-->
+              <!-- 
+              <div class="col-2">
+                <p class="text-center mt-4"><a a href="#modalAddCreditCard" role="button" class="btn btn-large btn-primary" data-toggle="modal" onclick="generateMonth()">Cambiar</a></p>
+              </div>
+            -->
 
+            </div> 
+          </div> <!-- Contiene dos div info/cambiar-->
+      {% else %}
 
-      <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
-        <div class="row "> <!-- Contiene dos -->
-          <div class="col-10">
-              <article class="card-body">
-                <header class="mb-4"><h5 class="card-title">Cuenta bancaria</h4></header>
+          <div class="card mx-auto" style="max-width: 80vw; margin-top:1vh;"> 
+            <div class="row "> <!-- Contiene dos -->
+              <div class="col-10">
+                  <article class="card-body">
+                    <header class="mb-4"><h5 class="card-title">Cuenta bancaria</h4></header>
+                        
+                      <p id="bank">{{ paymentInfo }}</p>
                     
-                  <p id="bank"> ES19 1234 1234 56 0123456789</p>
-                
-              </article><!-- card-body.// -->
-          </div> <!-- card Dirección x2.// -->
-          <div class="col-2">
-            <p class="text-center mt-4"><a a href="#modalAddBank" role="button" class="btn btn-large btn-primary" data-toggle="modal" onclick="generateMonth()">Cambiar</a></p>
-          </div> <!-- card Cambiar direcciónx2.// -->
+                  </article><!-- card-body.// -->
+              </div> <!-- card Dirección x2.// -->
 
-        </div> 
-      </div> <!-- Contiene dos div info/cambiar-->
+              <!-- 
+              <div class="col-2">
+                <p class="text-center mt-4"><a a href="#modalAddBank" role="button" class="btn btn-large btn-primary" data-toggle="modal" onclick="generateMonth()">Cambiar</a></p>
+              </div> 
+              -->
 
+            </div> 
+          </div> <!-- Contiene dos div info/cambiar-->
+      {% endif %}
 
       <div class="mx-auto" style="max-width: 80vw; margin-top:5vh;"> 
           <article class="card-body">
             <header class="mb-4"><h4 class="card-title">Información del Cliente</h4></header>
 
-              <div id="header"> <h5 class="card-title">Cliente:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="client">Fernando Lagos</h6></h5> </div>
-              <div id="header"> <h5 class="card-title">Total a producto:&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="totalPay">L. 19000.00</h6></h5> </div>
-              <div id="header"> <h5 class="card-title">Impuestos (15%):&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="isv">15%</h6></h5> </div>
-              <div id="header"> <h5 class="card-title">Total a pagar:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="totalPay">L. 2185.00</h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Cliente:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="client">{{ name }}</h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Total a producto:&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="totalPay">L. {{ total }} </h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Impuestos (15%):&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="isv">L. {{ ISV }}</h6></h5> </div>
+              <div id="header"> <h5 class="card-title">Total a pagar:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<h6 class="text-muted" id="totalPay">L. {{ totalAPagar }}</h6></h5> </div>
             
           </article><!-- card-body.// -->
         </div>

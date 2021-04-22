@@ -9,7 +9,6 @@ def listItems():
 	shoppingList = []
 	quantities = []
 	con = dbConnectionService()
-	con.connect()
 	total = 0
 
 	for product in products:
