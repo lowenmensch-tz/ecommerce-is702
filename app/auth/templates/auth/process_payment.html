@@ -1,11 +1,10 @@
 {% include "base.html"%}
 
-
+<link rel="stylesheet" href="/static/css/shoppingList.css">
 
 <style>
   #header h5, h6 { display:inline; }
 </style>
-
 
 <!-- ========================= SECTION CONTENT ========================= -->
 <section class="section-content padding-y">
@@ -27,7 +26,7 @@
               <article class="card-body">
                 <header class="mb-4"><h5 class="card-title">Dirección de envío</h4></header>
                     
-                  <p id="address"> 954 Mackenzie Ways Apt. 822,	East Scottie </p>
+                  <p id="address"> {{ address }} </p>
                 
               </article><!-- card-body.// -->
           </div> <!-- card Dirección x2.// -->
@@ -98,7 +97,11 @@
         </div>
 
         <div class="col-2">
-          <p class="text-center mt-4"><a a href="" role="button" class="btn btn-lg btn-primary" data-toggle="modal">Realizar pago</a></p>
+          <p class="text-center mt-4">
+            <form method="POST" action="/auth/process_payment">
+              <button class="process-payment" type="submit">Realizar Pago</button>
+           </form>
+          </p>
         </div> <!-- card Cambiar direcciónx2.// -->
 
       </div>

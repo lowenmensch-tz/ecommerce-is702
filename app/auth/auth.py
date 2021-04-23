@@ -180,17 +180,108 @@ def forgot_pass():
 @auth_bp.route("/process_payment", methods=["GET","POST"])
 def process_payment():
 	if request.method == "POST":
-		
-		return "Eula"
+		email = session['email']
+		trackingNumber = session['trackingNumber']
+		con = dbConnectionService()
+
+		products = session['shoppingCart']
+		total = 0
+
+		for product in products:
+			p = con.query("SELECT * FROM vw_%s WHERE id = '%s';" % (product[2],product[0]))[0]
+			price = re.sub("(L\.)|(,)","",str(p[5])).strip() # Limpiar el valor del precio
+			subtotal = float(price)*float(product[1])
+			product.append(subtotal)
+			total = total + subtotal
+
+		ISV = total*0.15
+		totalAPagar = total + ISV
+
+		# Inserciones en la base de datos
+		con.DMSQuery(
+			"""
+				INSERT INTO Invoice(tex_number_order ,dec_totalPaid ) VALUES 
+					('%s', %s)
+				;
+			"""%(trackingNumber,totalAPagar)
+		)
+
+		for product in products:
+			# 0: id, 1: cantidad, 2: categoría, 3: total
+
+			# Insertar cada Producto comprado en la base de datos
+			con.DMSQuery(
+				"""
+					INSERT INTO InvoiceDetail(id_invoice_fk, id_inventory_fk, sma_quantity, dec_totalPrice) VALUES
+					(
+						fn_getLastInvoice(),
+						fn_getIdInventoryProduct(%s), 
+						%s, 
+						%s
+					)
+				;
+				"""%(product[0],product[1],product[3])
+			)
+
+			# Actualizar el Inventario
+			con.DMSQuery(
+				"""
+				UPDATE Inventory 
+				SET med_quantity = med_quantity - %s
+				WHERE id = fn_getIdInventoryProduct('%s')
+				"""%(product[1],product[0])
+			)
+
+		con.DMSQuery(
+			"""
+				INSERT INTO GeneralOrder(id_invoice_fk, tim_delivery_date) VALUES
+					(
+						fn_getLastInvoice(),
+						'%s'
+					)
+				;
+			"""%("2025-01-01")
+		)
+
+		if session['userType'] == 1:
+
+			con.DMSQuery(
+				"""
+					INSERT INTO CustomerOrder(id_client_fk, id_generalOrder_fk) VALUES 
+						(
+							fn_getIdByEmail('%s'), 
+							fn_getLastGeneralOrder()
+						)
+					;
+				"""%(email)
+			)
+		else:
+			con.DMSQuery(
+				"""
+					INSERT INTO BusinessOrder(id_business_fk, id_generalOrder_fk) VALUES 
+					(
+						fn_getIdByEmail('%s'), 
+						fn_getLastGeneralOrder()
+					)
+					;
+				"""%(email)
+			)
+
+		# Reinicio de variables en Sesión 
+		session['cartCounter'] = 0
+		session['shoppingCart'] = []
+
+		return redirect("/")
+		#return "Eula"
 	else:
 		s = string.ascii_lowercase
 		trackingNumber = ''.join(secrets.choice(s) for i in range(16)).upper() # Generado utilizando la librería Secret para que no se repita
+		session['trackingNumber'] = trackingNumber
 
 		email = session['email']
 
 		con = dbConnectionService()
 
-		# Funciona, Devuelve el tipo de Usuario
 		userType = (con.query(
 			"""
 				SELECT 
@@ -208,9 +299,10 @@ def process_payment():
 			""" % (email))[0][0]
 		)
 
+		session['userType'] = userType
+
 		if userType == 1:
 		
-			# Funciona, Devuelve los últimos 4 digitos de la tarjeta
 			paymentInfo = (con.query(
 				"""
 					SELECT 
@@ -231,7 +323,6 @@ def process_payment():
 				""" % (email))[0][0]
 			) 
 
-			# Funciona, Devuelve el nombre del cliente
 			name = (con.query(
 			"""
 				SELECT 
@@ -255,7 +346,6 @@ def process_payment():
 
 		elif userType == 2:
 			
-			# Funciona, Devuelve el número de cuenta
 			paymentInfo = (con.query(
 				"""
 				SELECT 
@@ -270,8 +360,6 @@ def process_payment():
 				""" % (email))[0][0]
 			) 
 
-
-			# Devolver el Nombre de la Empresa
 			name = (con.query(
 				"""
 					SELECT 
@@ -289,11 +377,8 @@ def process_payment():
 			print(paymentInfo)
 			print(name)
 		
-
-		# No Funciona, Genera Error (Cada Subquery debe tener su propio Alias)
-		"""
-		address = con.query(
-			""
+		address = (con.query(
+			"""
 				SELECT 
 					CONCAT(
 							Address.tex_street_address, ", ",
@@ -301,52 +386,50 @@ def process_payment():
 							Address.tex_zip, ", ",
 							Address.tex_city, ", ",
 							Address.tex_state
-					)
+					) AS Address, 
+					Address.id
 				FROM 
 					User 
 				INNER JOIN 
 					(
 						(
-						SELECT 
-							Person.id AS id, 
-							Person.id_user_fk AS id_user_fk
-						FROM 
-							Person 
-						INNER JOIN 
-							Client ON Person.id_user_fk = Client.id
+							SELECT 
+								Person.id_user_fk AS id_user_fk, 
+								AddressClient.id_address_fk AS id_address_fk
+							FROM 
+								Person 
+							INNER JOIN 
+								Client ON Person.id = Client.id_person_fk
+							INNER JOIN 
+								AddressClient ON  Client.id = AddressClient.id_client_fk
+							WHERE 
+								Person.id IN (
+											SELECT 
+												id_person_fk
+											FROM 
+												Client
+								) 
 						)
 						UNION 
 						(
 							SELECT 
-								Business.id,
-								Business.id_user_fk
+								Business.id_user_fk AS id_user_fk,
+								AddressBusiness.id_address_fk AS id_address_fk
 							FROM 
 								Business
+							INNER JOIN 
+								AddressBusiness ON Business.id = AddressBusiness.id_business_fk
 						)
-					) AS Clients ON User.id = Clients.id_user_fk
-				INNER JOIN 
-					(
-						SELECT 
-							id_client_fk AS id, 
-							id_address_fk
-						FROM
-							AddressClient
-					)
-					UNION
-					(
-						SELECT 
-							id_business_fk AS id, 
-							id_address_fk
-						FROM
-							AddressBusiness
-					) AS Addresses ON Clients.id = Addresses.id
+					) AS Addresses ON User.id = Addresses.id_user_fk
 				INNER JOIN 
 					Address ON Addresses.id_address_fk = Address.id
 				WHERE 
 					User.tex_email = '%s'
-				; 
-			"" % (email)
-		) """
+				;
+			""" % (email))[0][0]
+		)
+
+		print(address)
 
 		products = session['shoppingCart']
 		total = 0
@@ -360,4 +443,4 @@ def process_payment():
 		ISV = total*0.15
 		totalAPagar = total + ISV
 		
-		return render_template("process_payment.html", title="Process payment", track=trackingNumber, userType=userType, paymentInfo=paymentInfo, name=name, total=total, ISV=ISV, totalAPagar=totalAPagar)
+		return render_template("process_payment.html", title="Process payment", address=address, track=trackingNumber, userType=userType, paymentInfo=paymentInfo, name=name, total=total, ISV=ISV, totalAPagar=totalAPagar)

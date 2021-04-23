@@ -164,3 +164,123 @@ DELIMITER $$
     END $$
 
 DELIMITER ;
+
+
+
+--
+-- última factura creada
+--
+
+DROP FUNCTION IF EXISTS fn_getLastInvoice;
+
+DELIMITER $$
+    
+    CREATE FUNCTION fn_getLastInvoice() RETURNS BIGINT UNSIGNED
+    BEGIN 
+        RETURN (
+                    SELECT 
+                        id
+                    FROM 
+                        Invoice
+                    ORDER BY
+                        id DESC
+                    LIMIT 1
+                )
+            ;
+    END $$
+
+DELIMITER ;
+
+
+--
+-- Trae el id del Producto que se encuentra en el inventario
+--
+
+DROP FUNCTION IF EXISTS fn_getIdInventoryProduct;
+
+DELIMITER $$
+    
+    CREATE FUNCTION fn_getIdInventoryProduct(id_product BIGINT UNSIGNED) RETURNS BIGINT UNSIGNED
+    BEGIN 
+        RETURN (
+                    SELECT 
+                        id
+                    FROM 
+                        Inventory
+                    WHERE 
+                        id_product_fk = id_product
+                )
+            ;
+    END $$
+
+DELIMITER ;
+
+
+--
+-- Trae el id del usuario a partir del correo
+--
+
+DROP FUNCTION IF EXISTS fn_getIdByEmail;
+
+DELIMITER $$
+    
+    CREATE FUNCTION fn_getIdByEmail(email VARCHAR(40)) RETURNS BIGINT UNSIGNED
+    BEGIN 
+        RETURN (
+                    SELECT 
+                        Users.id
+                    FROM 
+                        User
+                    INNER JOIN 
+                        (
+                            (
+                                SELECT 
+                                    id, 
+                                    id_user_fk
+                                FROM 
+                                    Business
+                            )
+                            UNION 
+                            (
+                                SELECT 
+                                    Client.id AS id,
+                                    Person.id_user_fk AS id_user_fk
+                                FROM 
+                                    Person
+                                INNER JOIN 
+                                    Client ON Person.id = Client.id_person_fk
+                            )
+
+                        ) AS Users  ON User.id = Users.id_user_fk
+                    WHERE 
+                        User.tex_email = email
+                )
+            ;
+    END $$
+
+DELIMITER ;
+
+
+--
+-- última orden creada
+--
+
+DROP FUNCTION IF EXISTS fn_getLastGeneralOrder;
+
+DELIMITER $$
+    
+    CREATE FUNCTION fn_getLastGeneralOrder() RETURNS BIGINT UNSIGNED
+    BEGIN 
+        RETURN (
+                    SELECT 
+                        id
+                    FROM 
+                        GeneralOrder
+                    ORDER BY
+                        id DESC
+                    LIMIT 1
+                )
+            ;
+    END $$
+
+DELIMITER ;
