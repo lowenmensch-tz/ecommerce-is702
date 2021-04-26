@@ -274,173 +274,178 @@ def process_payment():
 		return redirect("/")
 		#return "Eula"
 	else:
-		s = string.ascii_lowercase
-		trackingNumber = ''.join(secrets.choice(s) for i in range(16)).upper() # Generado utilizando la librería Secret para que no se repita
-		session['trackingNumber'] = trackingNumber
 
-		email = session['email']
+		if session.get('email') is None:
+			flash('Debe Iniciar Sesión para Realizar el Pago')
+			return redirect("/auth/login")
+		else:
+			s = string.ascii_lowercase
+			trackingNumber = ''.join(secrets.choice(s) for i in range(16)).upper() # Generado utilizando la librería Secret para que no se repita
+			session['trackingNumber'] = trackingNumber
 
-		con = dbConnectionService()
+			email = session['email']
 
-		userType = (con.query(
-			"""
-				SELECT 
-					CASE
-						WHEN cod_rol = "cliente" THEN 1
-						WHEN cod_rol = "empresa" THEN 2
-						WHEN cod_rol = "empleado" THEN 3
-						WHEN cod_rol = "administrador" THEN 4
-					END
-				FROM 
-					User
-				WHERE 
-					tex_email = '%s' 
-			; 
-			""" % (email))[0][0]
-		)
+			con = dbConnectionService()
 
-		session['userType'] = userType
-
-		if userType == 1:
-		
-			paymentInfo = (con.query(
+			userType = (con.query(
 				"""
 					SELECT 
-						SUBSTRING(
-							CreditCard.tex_number, -4
-						) AS number
-					FROM
-						User 
+						CASE
+							WHEN cod_rol = "cliente" THEN 1
+							WHEN cod_rol = "empresa" THEN 2
+							WHEN cod_rol = "empleado" THEN 3
+							WHEN cod_rol = "administrador" THEN 4
+						END
+					FROM 
+						User
+					WHERE 
+						tex_email = '%s' 
+				; 
+				""" % (email))[0][0]
+			)
+
+			session['userType'] = userType
+
+			if userType == 1:
+			
+				paymentInfo = (con.query(
+					"""
+						SELECT 
+							SUBSTRING(
+								CreditCard.tex_number, -4
+							) AS number
+						FROM
+							User 
+						INNER JOIN 
+							Person ON User.id = Person.id_user_fk
+						INNER JOIN 
+							Client ON Person.id = Client.id_person_fk
+						INNER JOIN
+							CreditCard ON Client.id  = CreditCard.id_client_fk 
+						WHERE 
+							User.tex_email = '%s'
+						;
+					""" % (email))[0][0]
+				) 
+
+				name = (con.query(
+				"""
+					SELECT 
+						CONCAT(
+							tex_first_name, 
+							" ",
+							tex_last_name
+						) AS name
+					FROM 
+						User
 					INNER JOIN 
 						Person ON User.id = Person.id_user_fk
-					INNER JOIN 
-						Client ON Person.id = Client.id_person_fk
-					INNER JOIN
-						CreditCard ON Client.id  = CreditCard.id_client_fk 
 					WHERE 
 						User.tex_email = '%s'
 					;
 				""" % (email))[0][0]
-			) 
+				)
 
-			name = (con.query(
-			"""
-				SELECT 
-					CONCAT(
-						tex_first_name, 
-						" ",
-						tex_last_name
-					) AS name
-				FROM 
-					User
-				INNER JOIN 
-					Person ON User.id = Person.id_user_fk
-				WHERE 
-					User.tex_email = '%s'
-				;
-			""" % (email))[0][0]
-			)
+				print(paymentInfo)
+				print(name)
 
-			print(paymentInfo)
-			print(name)
-
-		elif userType == 2:
-			
-			paymentInfo = (con.query(
-				"""
-				SELECT 
-					Business.tex_bankAccount AS bank
-				FROM
-					User 
-				INNER JOIN 
-					Business ON User.id = Business.id_user_fk
-				WHERE 
-					User.tex_email = '%s'
-				;
-				""" % (email))[0][0]
-			) 
-
-			name = (con.query(
-				"""
+			elif userType == 2:
+				
+				paymentInfo = (con.query(
+					"""
 					SELECT 
-						Business.tex_name AS name
+						Business.tex_bankAccount AS bank
 					FROM
-						User
-					INNER JOIN
+						User 
+					INNER JOIN 
 						Business ON User.id = Business.id_user_fk
 					WHERE 
 						User.tex_email = '%s'
 					;
+					""" % (email))[0][0]
+				) 
+
+				name = (con.query(
+					"""
+						SELECT 
+							Business.tex_name AS name
+						FROM
+							User
+						INNER JOIN
+							Business ON User.id = Business.id_user_fk
+						WHERE 
+							User.tex_email = '%s'
+						;
+					""" % (email))[0][0]
+				)
+
+				print(paymentInfo)
+				print(name)
+			
+			address = (con.query(
+				"""
+					SELECT 
+						CONCAT(
+								Address.tex_street_address, ", ",
+								Address.tex_number_street, ", ",
+								Address.tex_zip, ", ",
+								Address.tex_city, ", ",
+								Address.tex_state
+						) AS Address, 
+						Address.id
+					FROM 
+						User 
+					INNER JOIN 
+						(
+							(
+								SELECT 
+									Person.id_user_fk AS id_user_fk, 
+									AddressClient.id_address_fk AS id_address_fk
+								FROM 
+									Person 
+								INNER JOIN 
+									Client ON Person.id = Client.id_person_fk
+								INNER JOIN 
+									AddressClient ON  Client.id = AddressClient.id_client_fk
+								WHERE 
+									Person.id IN (
+												SELECT 
+													id_person_fk
+												FROM 
+													Client
+									) 
+							)
+							UNION 
+							(
+								SELECT 
+									Business.id_user_fk AS id_user_fk,
+									AddressBusiness.id_address_fk AS id_address_fk
+								FROM 
+									Business
+								INNER JOIN 
+									AddressBusiness ON Business.id = AddressBusiness.id_business_fk
+							)
+						) AS Addresses ON User.id = Addresses.id_user_fk
+					INNER JOIN 
+						Address ON Addresses.id_address_fk = Address.id
+					WHERE 
+						User.tex_email = '%s'
+					;
 				""" % (email))[0][0]
 			)
 
-			print(paymentInfo)
-			print(name)
-		
-		address = (con.query(
-			"""
-				SELECT 
-					CONCAT(
-							Address.tex_street_address, ", ",
-							Address.tex_number_street, ", ",
-							Address.tex_zip, ", ",
-							Address.tex_city, ", ",
-							Address.tex_state
-					) AS Address, 
-					Address.id
-				FROM 
-					User 
-				INNER JOIN 
-					(
-						(
-							SELECT 
-								Person.id_user_fk AS id_user_fk, 
-								AddressClient.id_address_fk AS id_address_fk
-							FROM 
-								Person 
-							INNER JOIN 
-								Client ON Person.id = Client.id_person_fk
-							INNER JOIN 
-								AddressClient ON  Client.id = AddressClient.id_client_fk
-							WHERE 
-								Person.id IN (
-											SELECT 
-												id_person_fk
-											FROM 
-												Client
-								) 
-						)
-						UNION 
-						(
-							SELECT 
-								Business.id_user_fk AS id_user_fk,
-								AddressBusiness.id_address_fk AS id_address_fk
-							FROM 
-								Business
-							INNER JOIN 
-								AddressBusiness ON Business.id = AddressBusiness.id_business_fk
-						)
-					) AS Addresses ON User.id = Addresses.id_user_fk
-				INNER JOIN 
-					Address ON Addresses.id_address_fk = Address.id
-				WHERE 
-					User.tex_email = '%s'
-				;
-			""" % (email))[0][0]
-		)
+			print(address)
 
-		print(address)
+			products = session['shoppingCart']
+			total = 0
 
-		products = session['shoppingCart']
-		total = 0
+			for product in products:
+				p = con.query("SELECT * FROM vw_%s WHERE id = '%s';" % (product[2],product[0]))[0]
+				price = re.sub("(L\.)|(,)","",str(p[5])).strip() # Limpiar el valor del precio
+				subtotal = float(price)*float(product[1])
+				total = total + subtotal
 
-		for product in products:
-			p = con.query("SELECT * FROM vw_%s WHERE id = '%s';" % (product[2],product[0]))[0]
-			price = re.sub("(L\.)|(,)","",str(p[5])).strip() # Limpiar el valor del precio
-			subtotal = float(price)*float(product[1])
-			total = total + subtotal
-
-		ISV = total*0.15
-		totalAPagar = total + ISV
-		
-		return render_template("process_payment.html", title="Process payment", address=address, track=trackingNumber, userType=userType, paymentInfo=paymentInfo, name=name, total=total, ISV=ISV, totalAPagar=totalAPagar)
+			ISV = total*0.15
+			totalAPagar = total + ISV
+			
+			return render_template("process_payment.html", title="Process payment", address=address, track=trackingNumber, userType=userType, paymentInfo=paymentInfo, name=name, total=total, ISV=ISV, totalAPagar=totalAPagar)
